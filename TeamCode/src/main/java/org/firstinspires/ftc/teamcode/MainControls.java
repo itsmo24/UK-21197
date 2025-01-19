@@ -66,7 +66,7 @@ public class MainControls extends LinearOpMode {
             wrist.setPower(gamepad2.right_stick_y);
 
             // HANGING BUTTON
-            if (gamepad2.left_bumper){
+            if (gamepad2.dpad_up){
                 rightArm.setPower(-1);
                 leftArm.setPower(-1);
                 sleep(4000);
