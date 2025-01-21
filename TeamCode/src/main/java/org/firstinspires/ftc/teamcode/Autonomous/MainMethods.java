@@ -89,8 +89,31 @@ public class MainMethods{
     }
 
     // MOVEMENT
-    // FORWARDS AND BACKWARDS
+    public void movement(int time, double power){
+        backLeft.setPower(power);
+        backRight.setPower(power);
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
+        sleep(time);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+    }
+    
     // SIDEWAYS
+    public void sideways(int time, double power){
+        // Right positive power
+        backLeft.setPower(-power);
+        backRight.setPower(power);
+        frontLeft.setPower(power);
+        frontRight.setPower(-power);
+        sleep(time);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+    }
 
 
     public void turning(int targetAngle){
