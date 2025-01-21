@@ -118,7 +118,7 @@ public class MainMethods{
     }
 
 
-    public void turning(int targetAngle){
+    public void turn(int targetAngle){
         double pPower = 0;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         // Looping until target angle is reached
@@ -144,7 +144,7 @@ public class MainMethods{
         sleep(pauseTimer);
     }
 
-    public void distanceSens(int targetDistance){
+    public void range(int targetDistance){
         double pPower = 0;
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         while (targetDistance != currentDistance){
