@@ -52,7 +52,10 @@ public class Auto1 extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+        move.movement(500, 0.5);
+        move.sideways(1000, -0.8);
+        move.range(50);
+        
 
     }
 }
