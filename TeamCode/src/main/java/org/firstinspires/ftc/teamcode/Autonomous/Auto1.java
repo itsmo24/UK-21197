@@ -46,6 +46,8 @@ public class Auto1 extends LinearOpMode {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        imu.resetYaw();
+        
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
