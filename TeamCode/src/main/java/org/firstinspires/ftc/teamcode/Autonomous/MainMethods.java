@@ -29,7 +29,9 @@ public class MainMethods{
     double turningPower = 0.5;
     int armUpTime = 1600;
     int armDownTime = 1600;
-
+    int wristUpTime = 1400;
+    int wristDownTime = 1400;
+    
     int pauseTimer = 250;
 
     double gripperClosedPosition = 1.0;
@@ -77,13 +79,13 @@ public class MainMethods{
     }
     public void wristDown() {
         wrist.setPower(-0.4);
-        sleep(1600);
+        sleep(wristDownTime);
         wrist.setPower(0);
         sleep(pauseTimer);
     }
     public void wristUp() {
         wrist.setPower(0.7);
-        sleep(1600);
+        sleep(wristUpTime);
         wrist.setPower(0);
         sleep(pauseTimer);
     }
