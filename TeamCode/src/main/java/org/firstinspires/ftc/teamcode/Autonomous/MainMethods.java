@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import static android.os.SystemClock.currentGnssTimeClock;
 import static android.os.SystemClock.sleep;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 
 public class MainMethods{
     IMU imu;
@@ -120,7 +120,7 @@ public class MainMethods{
 
     public void turn(int targetAngle){
         double pPower = 0;
-        int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
         while (currentAngle != targetAngle){
             // Checking to see if needed to turn right or left
@@ -134,7 +134,7 @@ public class MainMethods{
             backRight.setPower(-pPower);
             frontLeft.setPower(pPower);
             frontRight.setPower(-pPower);
-            currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         }
         // After target angle is reached
         backLeft.setPower(0);
