@@ -53,6 +53,7 @@ public class Auto1 extends LinearOpMode {
         move.wristUp();
         move.gripperOpen();
         move.armDown();
+        move.wristDown();
         move.movement(500, 1);
         move.sideways(1000, 1);
         move.turn(90);
