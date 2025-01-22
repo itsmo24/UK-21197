@@ -23,6 +23,7 @@ public class MainControls extends LinearOpMode {
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
+        boolean isPressed = false;
 
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -75,16 +76,19 @@ public class MainControls extends LinearOpMode {
             }
 
             //GRIPPER
-            if (gamepad2.right_bumper) {
+            // Checks to see if has been pressed before and stops if it has.
+            if (!isPressed && gamepad2.right_bumper){
                 if (gripper.getPosition() == gripperOpenPosition){
                     gripper.setPosition(gripperClosedPosition);
                 } else{
                     gripper.setPosition(gripperOpenPosition);
                 }
-
             }
+            isPressed = gamepad2.right_bumper;
+
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.update();
 
         }
 }

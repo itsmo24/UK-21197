@@ -30,7 +30,7 @@ public class MainMethods{
     int wristUpTime = 1400;
     int wristDownTime = 1400;
     
-    int pauseTimer = 250;
+    int pauseTimer = 100;
 
     double gripperClosedPosition = 1.0;
     double gripperOpenPosition = 0;
@@ -76,13 +76,13 @@ public class MainMethods{
         sleep(pauseTimer);
     }
     public void wristDown() {
-        wrist.setPower(-0.4);
+        wrist.setPower(0.4);
         sleep(wristDownTime);
         wrist.setPower(0);
         sleep(pauseTimer);
     }
     public void wristUp() {
-        wrist.setPower(0.7);
+        wrist.setPower(-0.5);
         sleep(wristUpTime);
         wrist.setPower(0);
         sleep(pauseTimer);
@@ -116,51 +116,58 @@ public class MainMethods{
     }
 
 
-    public void turn(int targetAngle, double power){
-        double pPower = 0;
+
+    // Function that finds difference of two inputs divides by the addition of them
+
+    public double decimal(double num1, double num2){
+        num1 = Math.abs(num1);
+        num2 = Math.abs(num2);
+        if (num1 > num2){
+            return  Math.abs(num1 - num2) / num1;
+        }
+        else {
+            return  Math.abs(num1 - num2) / num2;
+        }
+    }
+
+    public void turn(int targetAngle){
+        double power = 1;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
         while (currentAngle != targetAngle){
             // Checking to see if needed to turn right or left
             if (currentAngle > targetAngle){
-                pPower = -power;
+                power = -decimal(currentAngle, targetAngle);
             } else {
-                pPower = power;
+                power = decimal(currentAngle, targetAngle);
             }
+
             // Turning right if power is positive
-            backLeft.setPower(pPower);
-            backRight.setPower(-pPower);
-            frontLeft.setPower(pPower);
-            frontRight.setPower(-pPower);
+            backLeft.setPower(power);
+            backRight.setPower(-power);
+            frontLeft.setPower(power);
+            frontRight.setPower(-power);
             currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         }
-        // After target angle is reached
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
         sleep(pauseTimer);
     }
 
-    public void range(int targetDistance, double power){
-        double pPower = 0;
+    public void range(int targetDistance){
+        double power = 1;
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
+
         while (targetDistance != currentDistance){
             if (targetDistance > currentDistance){
-                pPower = -power;
+                power = -decimal(currentDistance, targetDistance);
             } else {
-                pPower = power;
+                power = decimal(currentDistance, targetDistance);
             }
-            backLeft.setPower(pPower);
-            backRight.setPower(pPower);
-            frontLeft.setPower(pPower);
-            frontRight.setPower(pPower);
+            backLeft.setPower(power);
+            backRight.setPower(power);
+            frontLeft.setPower(power);
+            frontRight.setPower(power);
             currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         }
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
         sleep(pauseTimer);
     }
 

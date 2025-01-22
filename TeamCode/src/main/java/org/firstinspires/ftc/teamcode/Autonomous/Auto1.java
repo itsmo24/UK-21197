@@ -47,15 +47,27 @@ public class Auto1 extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         imu.resetYaw();
-        
+
+        move.gripperClose();
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
-        move.movement(500, 0.5);
-        move.sideways(1000, -0.8);
-        move.range(50);
-        
 
+        move.movement(500, 1);
+        move.sideways(1000, -1);
+        move.turn(0);
+        move.range(50);
+        move.armUp();
+        move.wristUp();
+        move.armDown();
+        move.movement(500, 1);
+        move.sideways(1000, 1);
+        move.turn(90);
+        move.range(50);
+        move.turn(180);
+        move.range(50);
+        move.turn(0);
     }
 }
