@@ -25,8 +25,6 @@ public class MainMethods{
     Servo gripper;
     DistanceSensor rangeSensor;
 
-    double forwardsPower = 0.7;
-    double turningPower = 0.5;
     int armUpTime = 1600;
     int armDownTime = 1600;
     int wristUpTime = 1400;
@@ -118,16 +116,16 @@ public class MainMethods{
     }
 
 
-    public void turn(int targetAngle){
+    public void turn(int targetAngle, double power){
         double pPower = 0;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
         while (currentAngle != targetAngle){
             // Checking to see if needed to turn right or left
             if (currentAngle > targetAngle){
-                pPower = -turningPower;
+                pPower = -power;
             } else {
-                pPower = turningPower;
+                pPower = power;
             }
             // Turning right if power is positive
             backLeft.setPower(pPower);
@@ -144,14 +142,14 @@ public class MainMethods{
         sleep(pauseTimer);
     }
 
-    public void range(int targetDistance){
+    public void range(int targetDistance, double power){
         double pPower = 0;
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         while (targetDistance != currentDistance){
             if (targetDistance > currentDistance){
-                pPower = -forwardsPower;
+                pPower = -power;
             } else {
-                pPower = forwardsPower;
+                pPower = power;
             }
             backLeft.setPower(pPower);
             backRight.setPower(pPower);
