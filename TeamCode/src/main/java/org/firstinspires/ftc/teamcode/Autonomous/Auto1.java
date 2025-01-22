@@ -5,11 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous
+@Autonomous(name = "Straight then left")
 public class Auto1 extends LinearOpMode {
     @Override
     public void runOpMode(){
@@ -20,10 +18,6 @@ public class Auto1 extends LinearOpMode {
         DcMotor backLeft;
         DcMotor frontLeft;
         CRServo rightArm;
-        CRServo leftArm;
-        CRServo wrist;
-        Servo gripper;
-        DistanceSensor rangeSensor;
 
         move = new MainMethods(hardwareMap);
         backRight = hardwareMap.get(DcMotor.class, "backRight");
@@ -31,10 +25,6 @@ public class Auto1 extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         rightArm = hardwareMap.get(CRServo.class, "rightArm");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        wrist = hardwareMap.get(CRServo.class, "wrist");
-        gripper = hardwareMap.get(Servo.class, "gripper");
-        rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
         imu = hardwareMap.get(IMU.class, "imu");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -58,16 +48,16 @@ public class Auto1 extends LinearOpMode {
         move.movement(500, 1);
         move.sideways(1000, -1);
         move.turn(0);
-        move.range(50);
+        move.range(5);
         move.armUp();
         move.wristUp();
         move.armDown();
         move.movement(500, 1);
         move.sideways(1000, 1);
         move.turn(90);
-        move.range(50);
+        move.range(30);
         move.turn(180);
-        move.range(50);
+        move.range(30);
         move.turn(0);
     }
 }

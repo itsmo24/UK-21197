@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name = "MainControls")
 public class MainControls extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode(){
         // Initialize
         ElapsedTime runtime = new ElapsedTime();
         DcMotor frontLeft;
@@ -87,7 +87,7 @@ public class MainControls extends LinearOpMode {
             isPressed = gamepad2.right_bumper;
 
 
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.update();
 
         }
