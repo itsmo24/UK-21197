@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Main Controls")
 
-public class MainControl004 extends OpMode
+public class MainControl extends OpMode
 {
     // Declare OpMode members.
     final ElapsedTime runtime = new ElapsedTime();

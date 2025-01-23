@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @TeleOp
-public class TestSensor004 extends LinearOpMode {
+public class TestSensor extends LinearOpMode {
     DistanceSensor test_distance;
     DcMotor frontLeft;
     DcMotor frontRight;
