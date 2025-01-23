@@ -15,16 +15,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "Autonomous004")
 public class Autonomous extends LinearOpMode {
 
-    private IMU imu_IMU;
-    private DcMotor back_left_motor;
-    private DcMotor frontLeft;
-    private DcMotor front_right_motor;
-    private DcMotor back_right_motor;
-    private YawPitchRollAngles orientation;
-    private CRServo rightShoulder;
-    private CRServo leftShoulder;
-    private CRServo wrist;
-    private Servo claw;
+     IMU imu_IMU;
+     DcMotor back_left_motor;
+     DcMotor frontLeft;
+     DcMotor front_right_motor;
+     DcMotor back_right_motor;
+     YawPitchRollAngles orientation;
+    CRServo rightShoulder;
+     CRServo leftShoulder;
+     CRServo wrist;
+     Servo claw;
     int ticks = 1120;
     double TargetPosition;
     double circumference = 2.95*Math.PI;
