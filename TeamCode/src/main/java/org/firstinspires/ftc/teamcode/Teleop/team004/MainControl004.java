@@ -12,15 +12,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class MainControl004 extends OpMode
 {
     // Declare OpMode members.
-    private final ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
-    private CRServo rightArm;
-    private CRServo leftArm;
-    private CRServo wrist;
-    private Servo gripper;
+    final ElapsedTime runtime = new ElapsedTime();
+    DcMotor frontLeft;
+    DcMotor frontRight;
+    DcMotor backLeft;
+    DcMotor backRight;
+    CRServo rightArm;
+    CRServo leftArm;
+    CRServo wrist;
+    Servo gripper;
 
 
     /*
