@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Main Controls", group="Iterative Opmode")
+@TeleOp(name="Main Controls")
 
 public class MainControl004 extends OpMode
 {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -49,10 +49,6 @@ public class MainControl004 extends OpMode
         telemetry.addData("Status", "Initialized");
     }
 
-    @Override
-    public void init_loop() {
-    }
-
     /*
      * Code to run ONCE when the driver hits PLAY
      */
@@ -80,7 +76,7 @@ public class MainControl004 extends OpMode
 
         //arm and wrist
         wrist.setPower(gamepad2.right_stick_y);
-        if (gamepad2.right_bumper == true) {
+        if (gamepad2.right_bumper) {
             gripper.setPosition(1);
         } else{
             gripper.setPosition(0);

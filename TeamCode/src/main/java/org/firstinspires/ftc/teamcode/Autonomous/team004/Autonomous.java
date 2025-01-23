@@ -28,7 +28,7 @@ public class Autonomous extends LinearOpMode {
     int ticks = 1120;
     double TargetPosition;
     double circumference = 2.95*Math.PI;
-    private void Move_right(double x) {
+    public void Move_right(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -54,7 +54,7 @@ public class Autonomous extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void Move_left(double x) {
+    public void Move_left(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -78,7 +78,7 @@ public class Autonomous extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void Move_to_Position(double x) {
+    public void Move_to_Position(double x) {
         TargetPosition = (x/circumference)*ticks;
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -108,7 +108,7 @@ public class Autonomous extends LinearOpMode {
                 back_left_motor.getCurrentPosition(), back_right_motor.getCurrentPosition());
         telemetry.update();
     }
-    private void Move_back(double x) {
+    public void Move_back(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -133,7 +133,7 @@ public class Autonomous extends LinearOpMode {
         sleep(250);
     }
     double currentAngle;
-    private void rotateCCW(int targetOrientationAngle, float power) {
+    public void rotateCCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
         imu_IMU.resetYaw();
         back_left_motor.setPower(-power);
@@ -150,7 +150,7 @@ public class Autonomous extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void rotateCW(int targetOrientationAngle, float power) {
+    public void rotateCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
 
         imu_IMU.resetYaw();
@@ -168,8 +168,8 @@ public class Autonomous extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void grabber(boolean clawCheck){
-        if (clawCheck == true){
+    public void grabber(boolean clawCheck){
+        if (clawCheck){
             claw.setPosition(0.1);
             sleep(200);
             claw.setPosition(0.2);
@@ -191,7 +191,7 @@ public class Autonomous extends LinearOpMode {
             claw.setPosition(1);
             sleep(1500);
         }
-        else if (clawCheck == false){
+        else {
             claw.setPosition(0.9);
             sleep(200);
             claw.setPosition(0.8);
