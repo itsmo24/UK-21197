@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name = "Autonomous004")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Autonomous004")
 public class Autonomous extends LinearOpMode {
 
      IMU imu_IMU;

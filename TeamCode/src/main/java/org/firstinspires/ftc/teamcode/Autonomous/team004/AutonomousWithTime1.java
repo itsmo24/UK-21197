@@ -10,9 +10,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous
+@Autonomous(name = "AutonomousWithTime")
 
-public class AutonomousWithTime extends LinearOpMode{
+public class AutonomousWithTime1 extends LinearOpMode{
     IMU imu_IMU;
     DcMotor back_left_motor;
     DcMotor front_left_motor;
@@ -151,14 +151,14 @@ public class AutonomousWithTime extends LinearOpMode{
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        back_right_motor = hardwareMap.get(DcMotor.class, "back_right_motor");
-        back_left_motor = hardwareMap.get(DcMotor.class, "back_left_motor");
-        front_right_motor = hardwareMap.get(DcMotor.class, "front_right_motor");
-        front_left_motor = hardwareMap.get(DcMotor.class, "front_left_motor");
-        rightShoulder = hardwareMap.get(CRServo.class, "rightShoulder");
-        leftShoulder = hardwareMap.get(CRServo.class, "leftShoulder");
+        back_right_motor = hardwareMap.get(DcMotor.class, "backRight");
+        back_left_motor = hardwareMap.get(DcMotor.class, "backLeft");
+        front_right_motor = hardwareMap.get(DcMotor.class, "frontRight");
+        front_left_motor = hardwareMap.get(DcMotor.class, "frontLeft");
+        rightShoulder = hardwareMap.get(CRServo.class, "rightArm");
+        leftShoulder = hardwareMap.get(CRServo.class, "leftArm");
         wrist = hardwareMap.get(CRServo.class, "wrist");
-        claw = hardwareMap.get(Servo.class, "claw");
+        claw = hardwareMap.get(Servo.class, "gripper");
 
 
 
