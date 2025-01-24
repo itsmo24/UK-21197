@@ -196,7 +196,7 @@ public class AutonomousWithTime extends LinearOpMode{
             wrist.setPower(0);
             rightShoulder.setPower(0.6);
             leftShoulder.setPower(0.6);
-            sleep(600);
+            sleep(1100);
             rightShoulder.setPower(0);
             leftShoulder.setPower(0);
 
