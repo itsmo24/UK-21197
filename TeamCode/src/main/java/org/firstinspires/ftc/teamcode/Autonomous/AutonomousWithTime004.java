@@ -186,7 +186,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
 
         if (opModeIsActive()) {
 
-            forward(40,1);
+            //forward(40,1);
             //left(12, 1);
             rightShoulder.setPower(-0.6);
             leftShoulder.setPower(-0.6);
@@ -196,6 +196,11 @@ public class AutonomousWithTime004 extends LinearOpMode{
             wrist.setPower(-0.4);
             sleep(1600);
             wrist.setPower(0);
+            rightShoulder.setPower(0.6);
+            leftShoulder.setPower(0.6);
+            sleep(600);
+            rightShoulder.setPower(0);
+            leftShoulder.setPower(0);
 
 
             grabber( false);
