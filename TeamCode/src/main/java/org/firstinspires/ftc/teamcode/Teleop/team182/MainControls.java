@@ -68,11 +68,9 @@ public class MainControls extends LinearOpMode {
 
             // HANGING BUTTON
             if (gamepad2.dpad_up){
-                rightArm.setPower(-1);
-                leftArm.setPower(-1);
-                sleep(4000);
-                rightArm.setPower(-0.2);
-                leftArm.setPower(-0.2);
+                rightArm.setPower(0.2);
+                leftArm.setPower(0.2);
+                sleep(20000000);
             }
 
             //GRIPPER
