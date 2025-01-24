@@ -1,32 +1,30 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
-import org.firstinspires.ftc.robotcore.external.JavaUtil;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous
 
-public class AutonomousWithTime004 extends LinearOpMode{
-    private IMU imu_IMU;
-    private DcMotor back_left_motor;
-    private DcMotor front_left_motor;
-    private DcMotor front_right_motor;
-    private DcMotor back_right_motor;
-    private YawPitchRollAngles orientation;
-    private CRServo rightShoulder;
-    private CRServo leftShoulder;
-    private CRServo wrist;
-    private Servo claw;
+public class AutonomousWithTime extends LinearOpMode{
+    IMU imu_IMU;
+    DcMotor back_left_motor;
+    DcMotor front_left_motor;
+    DcMotor front_right_motor;
+    DcMotor back_right_motor;
+    YawPitchRollAngles orientation;
+    CRServo rightShoulder;
+    CRServo leftShoulder;
+    CRServo wrist;
+    Servo claw;
     double inches = 24;
-    private void forward(double distance, double power ){
+    public void forward(double distance, double power ){
 
         back_left_motor.setPower(power);
         back_right_motor.setPower(power);
@@ -35,7 +33,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
-    private void backward(double distance, double power ){
+    public void backward(double distance, double power ){
 
         back_left_motor.setPower(-power);
         back_right_motor.setPower(-power);
@@ -44,7 +42,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
-    private void right(double distance, double power ){
+    public void right(double distance, double power ){
         back_left_motor.setPower(-power);
         back_right_motor.setPower(power);
         front_left_motor.setPower(power);
@@ -52,7 +50,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
-    private void left(double distance, double power ){
+    public void left(double distance, double power ){
         back_left_motor.setPower(power);
         back_right_motor.setPower(-power);
         front_left_motor.setPower(-power);
@@ -60,14 +58,14 @@ public class AutonomousWithTime004 extends LinearOpMode{
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
-    private void stopMotors() {
+    public void stopMotors() {
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
         front_left_motor.setPower(0);
         front_right_motor.setPower(0);
     }
     double currentAngle;
-    private void rotateCCW(int targetOrientationAngle, float power) {
+    public void rotateCCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
         imu_IMU.resetYaw();
         back_left_motor.setPower(-power);
@@ -84,7 +82,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void rotateCW(int targetOrientationAngle,float power) {
+    public void rotateCW(int targetOrientationAngle,float power) {
         currentAngle = 0;
 
         imu_IMU.resetYaw();
@@ -102,8 +100,8 @@ public class AutonomousWithTime004 extends LinearOpMode{
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void grabber(boolean clawCheck){
-        if (clawCheck == true){
+    public void grabber(boolean clawCheck){
+        if (clawCheck){
             claw.setPosition(0.1);
             sleep(200);
             claw.setPosition(0.2);
@@ -125,7 +123,7 @@ public class AutonomousWithTime004 extends LinearOpMode{
             claw.setPosition(1);
             sleep(500);
         }
-        else if (clawCheck == false){
+        else{
             claw.setPosition(0.9);
             sleep(200);
             claw.setPosition(0.8);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Teleop;
+package org.firstinspires.ftc.teamcode.Teleop.team004;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,20 +7,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Main Controls", group="Iterative Opmode")
+@TeleOp(name="Main Controls")
 
-public class MainControl004 extends OpMode
+public class MainControl extends OpMode
 {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
-    private CRServo rightArm;
-    private CRServo leftArm;
-    private CRServo wrist;
-    private Servo gripper;
+    final ElapsedTime runtime = new ElapsedTime();
+    DcMotor frontLeft;
+    DcMotor frontRight;
+    DcMotor backLeft;
+    DcMotor backRight;
+    CRServo rightArm;
+    CRServo leftArm;
+    CRServo wrist;
+    Servo gripper;
 
 
     /*
@@ -47,10 +47,6 @@ public class MainControl004 extends OpMode
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         telemetry.addData("Status", "Initialized");
-    }
-
-    @Override
-    public void init_loop() {
     }
 
     /*
@@ -80,7 +76,7 @@ public class MainControl004 extends OpMode
 
         //arm and wrist
         wrist.setPower(gamepad2.right_stick_y);
-        if (gamepad2.right_bumper == true) {
+        if (gamepad2.right_bumper) {
             gripper.setPosition(1);
         } else{
             gripper.setPosition(0);

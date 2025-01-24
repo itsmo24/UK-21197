@@ -1,36 +1,34 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
-import org.firstinspires.ftc.robotcore.external.JavaUtil;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(name = "Autonomous004")
-public class Autonomous004 extends LinearOpMode {
+public class Autonomous extends LinearOpMode {
 
-    private IMU imu_IMU;
-    private DcMotor back_left_motor;
-    private DcMotor frontLeft;
-    private DcMotor front_right_motor;
-    private DcMotor back_right_motor;
-    private YawPitchRollAngles orientation;
-    private CRServo rightShoulder;
-    private CRServo leftShoulder;
-    private CRServo wrist;
-    private Servo claw;
+     IMU imu_IMU;
+     DcMotor back_left_motor;
+     DcMotor frontLeft;
+     DcMotor front_right_motor;
+     DcMotor back_right_motor;
+     YawPitchRollAngles orientation;
+    CRServo rightShoulder;
+     CRServo leftShoulder;
+     CRServo wrist;
+     Servo claw;
     int ticks = 1120;
     double TargetPosition;
     double circumference = 2.95*Math.PI;
-    private void Move_right(double x) {
+    public void Move_right(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -56,7 +54,7 @@ public class Autonomous004 extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void Move_left(double x) {
+    public void Move_left(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -80,7 +78,7 @@ public class Autonomous004 extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void Move_to_Position(double x) {
+    public void Move_to_Position(double x) {
         TargetPosition = (x/circumference)*ticks;
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -110,7 +108,7 @@ public class Autonomous004 extends LinearOpMode {
                 back_left_motor.getCurrentPosition(), back_right_motor.getCurrentPosition());
         telemetry.update();
     }
-    private void Move_back(double x) {
+    public void Move_back(double x) {
         TargetPosition = (x/circumference)*ticks;
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -135,7 +133,7 @@ public class Autonomous004 extends LinearOpMode {
         sleep(250);
     }
     double currentAngle;
-    private void rotateCCW(int targetOrientationAngle, float power) {
+    public void rotateCCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
         imu_IMU.resetYaw();
         back_left_motor.setPower(-power);
@@ -152,7 +150,7 @@ public class Autonomous004 extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void rotateCW(int targetOrientationAngle, float power) {
+    public void rotateCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
 
         imu_IMU.resetYaw();
@@ -170,8 +168,8 @@ public class Autonomous004 extends LinearOpMode {
         front_right_motor.setPower(0);
         sleep(250);
     }
-    private void grabber(boolean clawCheck){
-        if (clawCheck == true){
+    public void grabber(boolean clawCheck){
+        if (clawCheck){
             claw.setPosition(0.1);
             sleep(200);
             claw.setPosition(0.2);
@@ -193,7 +191,7 @@ public class Autonomous004 extends LinearOpMode {
             claw.setPosition(1);
             sleep(1500);
         }
-        else if (clawCheck == false){
+        else {
             claw.setPosition(0.9);
             sleep(200);
             claw.setPosition(0.8);
