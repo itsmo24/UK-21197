@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous(name = "AutonomousWithTime")
+@Autonomous(name = "(004) AutonomousWithTime")
 
 public class AutonomousWithTime1 extends LinearOpMode{
     IMU imu_IMU;

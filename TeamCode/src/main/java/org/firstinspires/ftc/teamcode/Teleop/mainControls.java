@@ -6,11 +6,15 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
+
 @TeleOp(name = "Main Controls")
-public class MainControls extends LinearOpMode {
+public class mainControls extends LinearOpMode {
     @Override
     public void runOpMode(){
         // Initialize
+        mainMethods move;
         ElapsedTime runtime = new ElapsedTime();
         DcMotor frontLeft;
         DcMotor frontRight;
@@ -25,6 +29,7 @@ public class MainControls extends LinearOpMode {
         double gripperOpenPosition = 0;
         int armHomePosition = 0;
 
+        move = new mainMethods(hardwareMap);
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -70,6 +75,7 @@ public class MainControls extends LinearOpMode {
             if (gamepad2.dpad_up){
                 rightArm.setPower(rightArm.getPower());
                 leftArm.setPower(leftArm.getPower());
+                sleep(99999999);
             }
 
             //GRIPPER

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.team182;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static android.os.SystemClock.sleep;
 
@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-public class MainMethods{
+public class mainMethods {
     IMU imu;
     DcMotor backRight;
     DcMotor frontRight;
@@ -25,6 +25,8 @@ public class MainMethods{
     Servo gripper;
     DistanceSensor rangeSensor;
 
+
+    int countsPerRevolution = 288;
     int armUpTime = 1600;
     int armDownTime = 1600;
     int wristUpTime = 1400;
@@ -35,7 +37,7 @@ public class MainMethods{
     double gripperClosedPosition = 1.0;
     double gripperOpenPosition = 0;
 
-    public MainMethods(HardwareMap hardwareMap) {
+    public mainMethods(HardwareMap hardwareMap) {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -59,7 +61,7 @@ public class MainMethods{
     }
 
     // ARM AND WRIST
-    public void armUp(){
+    public void armUpT(){
         rightArm.setPower(-0.8);
         leftArm.setPower(-0.8);
         sleep(armUpTime);
@@ -67,7 +69,7 @@ public class MainMethods{
         leftArm.setPower(0);
         sleep(pauseTimer);
     }
-    public void armDown(){
+    public void armDownT(){
         rightArm.setPower(0.8);
         leftArm.setPower(0.8);
         sleep(armDownTime);
@@ -86,6 +88,23 @@ public class MainMethods{
         sleep(wristUpTime);
         wrist.setPower(0);
         sleep(pauseTimer);
+    }
+
+
+    public void arm(int targetPosition){
+        double power;
+        int currentPosition = frontLeft.getCurrentPosition();
+        while (targetPosition != currentPosition){
+            if (targetPosition > currentPosition){
+                power = -decimal(targetPosition, currentPosition);
+            } else{
+                power = decimal(targetPosition, currentPosition);
+            }
+            rightArm.setPower(power);
+            leftArm.setPower(power);
+            currentPosition = frontLeft.getCurrentPosition();
+        }
+
     }
 
     // MOVEMENT
@@ -120,14 +139,19 @@ public class MainMethods{
     // Function that finds difference of two inputs divides by the addition of them
 
     public double decimal(double num1, double num2){
+        double power;
         num1 = Math.abs(num1);
         num2 = Math.abs(num2);
         if (num1 > num2){
-            return  Math.abs(num1 - num2) / num1;
+            power =  (Math.abs(num1 - num2) / num1);
         }
         else {
-            return  Math.abs(num1 - num2) / num2;
+            power =  (Math.abs(num1 - num2) / num2);
         }
+        if (power < 0.1){
+            power = 0.1;
+        }
+        return power;
     }
 
     public void turn(int targetAngle){
