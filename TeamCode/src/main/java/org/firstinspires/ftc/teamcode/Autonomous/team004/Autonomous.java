@@ -12,12 +12,12 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Autonomous004")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "(004) Autonomous")
 public class Autonomous extends LinearOpMode {
 
      IMU imu_IMU;
      DcMotor back_left_motor;
-     DcMotor frontLeft;
+     DcMotor front_left_motor;
      DcMotor front_right_motor;
      DcMotor back_right_motor;
      YawPitchRollAngles orientation;
@@ -33,24 +33,24 @@ public class Autonomous extends LinearOpMode {
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         back_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(1);
+        front_left_motor.setPower(1);
         front_right_motor.setPower(-1);
         back_left_motor.setPower(-1);
         back_right_motor.setPower(1);
-        while (-back_left_motor.getCurrentPosition() < TargetPosition && -frontLeft.getCurrentPosition() < TargetPosition) {
+        while (-back_left_motor.getCurrentPosition() < TargetPosition && -front_left_motor.getCurrentPosition() < TargetPosition) {
 
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
     }
@@ -59,22 +59,22 @@ public class Autonomous extends LinearOpMode {
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setPower(-1);
+        front_left_motor.setPower(-1);
         front_right_motor.setPower(1);
         back_left_motor.setPower(1);
         back_right_motor.setPower(-1);
-        while (back_left_motor.getCurrentPosition() < TargetPosition && frontLeft.getCurrentPosition() < TargetPosition) {
+        while (back_left_motor.getCurrentPosition() < TargetPosition && front_left_motor.getCurrentPosition() < TargetPosition) {
 
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
     }
@@ -82,15 +82,15 @@ public class Autonomous extends LinearOpMode {
         TargetPosition = (x/circumference)*ticks;
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         back_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(0.6);
+        front_left_motor.setPower(0.6);
         front_right_motor.setPower(0.6);
         back_left_motor.setPower(0.6);
         back_right_motor.setPower(0.6);
@@ -99,12 +99,12 @@ public class Autonomous extends LinearOpMode {
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
         telemetry.addData("Status", "Moving forward");
         telemetry.addData("Encoder Values", "FL: %d, FR: %d, BL: %d, BR: %d",
-                frontLeft.getCurrentPosition(), front_right_motor.getCurrentPosition(),
+                front_left_motor.getCurrentPosition(), front_right_motor.getCurrentPosition(),
                 back_left_motor.getCurrentPosition(), back_right_motor.getCurrentPosition());
         telemetry.update();
     }
@@ -113,22 +113,22 @@ public class Autonomous extends LinearOpMode {
 
         back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         back_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         front_right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setPower(-1);
+        front_left_motor.setPower(-1);
         front_right_motor.setPower(-1);
         back_left_motor.setPower(-1);
         back_right_motor.setPower(-1);
-        while (-back_left_motor.getCurrentPosition() < TargetPosition && -frontLeft.getCurrentPosition() < TargetPosition) {
+        while (-back_left_motor.getCurrentPosition() < TargetPosition && -front_left_motor.getCurrentPosition() < TargetPosition) {
 
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
     }
@@ -138,7 +138,7 @@ public class Autonomous extends LinearOpMode {
         imu_IMU.resetYaw();
         back_left_motor.setPower(-power);
         back_right_motor.setPower(power);
-        frontLeft.setPower(-power);
+        front_left_motor.setPower(-power);
         front_right_motor.setPower(power);
         while (currentAngle < targetOrientationAngle) {
             orientation = imu_IMU.getRobotYawPitchRollAngles();
@@ -146,7 +146,7 @@ public class Autonomous extends LinearOpMode {
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
     }
@@ -156,7 +156,7 @@ public class Autonomous extends LinearOpMode {
         imu_IMU.resetYaw();
         back_left_motor.setPower(power);
         back_right_motor.setPower(-power);
-        frontLeft.setPower(power);
+        front_left_motor.setPower(power);
         front_right_motor.setPower(-power);
         while (-currentAngle < targetOrientationAngle) {
             orientation = imu_IMU.getRobotYawPitchRollAngles();
@@ -164,7 +164,7 @@ public class Autonomous extends LinearOpMode {
         }
         back_left_motor.setPower(0);
         back_right_motor.setPower(0);
-        frontLeft.setPower(0);
+        front_left_motor.setPower(0);
         front_right_motor.setPower(0);
         sleep(250);
     }
@@ -221,7 +221,7 @@ public class Autonomous extends LinearOpMode {
         back_right_motor = hardwareMap.get(DcMotor.class, "back_right_motor");
         back_left_motor = hardwareMap.get(DcMotor.class, "back_left_motor");
         front_right_motor = hardwareMap.get(DcMotor.class, "front_right_motor");
-        frontLeft = hardwareMap.get(DcMotor.class, "front_left_motor");
+        front_left_motor = hardwareMap.get(DcMotor.class, "front_left_motor");
         rightShoulder = hardwareMap.get(CRServo.class, "rightShoulder");
         leftShoulder = hardwareMap.get(CRServo.class, "leftShoulder");
         wrist = hardwareMap.get(CRServo.class, "wrist");
@@ -236,12 +236,12 @@ public class Autonomous extends LinearOpMode {
         // Prompt user to press start button.
 
         back_left_motor.setDirection(DcMotor.Direction.REVERSE);
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        front_left_motor.setDirection(DcMotor.Direction.REVERSE);
         rightShoulder.setDirection(CRServo.Direction.REVERSE);
         claw.setPosition(1);
         back_right_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         front_right_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        front_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         back_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();

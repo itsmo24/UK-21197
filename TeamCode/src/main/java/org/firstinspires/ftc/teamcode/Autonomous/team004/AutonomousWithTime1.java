@@ -1,16 +1,20 @@
 package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous(name = "AutonomousWithTime")
+@Autonomous(name = "(004) AutonomousWithTime")
 
 public class AutonomousWithTime1 extends LinearOpMode{
     IMU imu_IMU;
@@ -23,6 +27,8 @@ public class AutonomousWithTime1 extends LinearOpMode{
     CRServo leftShoulder;
     CRServo wrist;
     Servo claw;
+    DistanceSensor test_distance;
+
     double inches = 24;
     public void forward(double distance, double power ){
 
@@ -100,6 +106,26 @@ public class AutonomousWithTime1 extends LinearOpMode{
         front_right_motor.setPower(0);
         sleep(250);
     }
+    public void sensor(int targetDistance,double power){
+
+        int currentDistance = (int) Math.round(test_distance.getDistance(DistanceUnit.CM));// If the distance in centimeters is less than 10, set the power to 0.3
+
+
+        if (targetDistance < currentDistance){
+            back_left_motor.setPower(power);
+            back_right_motor.setPower(power);
+            front_left_motor.setPower(power);
+            front_right_motor.setPower(power);
+            currentDistance = (int) Math.round(test_distance.getDistance(DistanceUnit.CM));
+        }
+
+        back_left_motor.setPower(0);
+        back_right_motor.setPower(0);
+        front_left_motor.setPower(0);
+        front_right_motor.setPower(0);
+
+        }
+
     public void grabber(boolean clawCheck){
         if (clawCheck){
             claw.setPosition(0.1);
@@ -159,6 +185,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         leftShoulder = hardwareMap.get(CRServo.class, "leftArm");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         claw = hardwareMap.get(Servo.class, "gripper");
+        test_distance = hardwareMap.get(DistanceSensor.class, "test_distance");
 
 
 
@@ -184,8 +211,9 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
         if (opModeIsActive()) {
 
-            //forward(40,1);
-            //left(12, 1);
+
+            sensor(30,1);
+            sensor(1,0.2);
             rightShoulder.setPower(-0.6);
             leftShoulder.setPower(-0.6);
             sleep(1600);
@@ -201,7 +229,17 @@ public class AutonomousWithTime1 extends LinearOpMode{
             leftShoulder.setPower(0);
 
 
+
             grabber( false);
+            rightShoulder.setPower(0.6);
+            leftShoulder.setPower(0.6);
+            sleep(500);
+            wrist.setPower(0.4);
+            sleep(1600);
+            wrist.setPower(0);
+
+
+
 
 
       /*sleep(100);
