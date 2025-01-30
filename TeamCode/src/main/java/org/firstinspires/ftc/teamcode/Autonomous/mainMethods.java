@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static android.os.SystemClock.sleep;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -104,6 +106,8 @@ public class mainMethods {
             leftArm.setPower(power);
             currentPosition = frontLeft.getCurrentPosition();
         }
+        leftArm.setPower(0);
+        rightArm.setPower(0);
 
     }
 
@@ -148,8 +152,8 @@ public class mainMethods {
         else {
             power =  (Math.abs(num1 - num2) / num2);
         }
-        if (power < 0.1){
-            power = 0.1;
+        if (power < 0.2){
+            power = 0.2;
         }
         return power;
     }

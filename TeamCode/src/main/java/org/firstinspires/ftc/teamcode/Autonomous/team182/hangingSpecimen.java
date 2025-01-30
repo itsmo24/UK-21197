@@ -29,7 +29,7 @@ public class hangingSpecimen extends LinearOpMode {
         rightArm = hardwareMap.get(CRServo.class, "rightArm");
         imu = hardwareMap.get(IMU.class, "imu");
 
-        int armUpPosition = 1440;
+        int armUpPosition = 430;
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
@@ -53,6 +53,7 @@ public class hangingSpecimen extends LinearOpMode {
 //        move.sideways(1000, -0.8);
 //        move.range(20);
         move.arm(armUpPosition);
-
+        // sleep(999999);
+        move.movement(3000, 0.3);
     }
 }

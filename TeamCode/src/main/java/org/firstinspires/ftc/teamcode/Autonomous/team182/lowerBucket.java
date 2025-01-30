@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous.team182;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
-
+@Autonomous(name = "(182) lowerBucket")
 public class lowerBucket extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,7 +38,6 @@ public class lowerBucket extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
 

@@ -44,6 +44,8 @@ public class mainControls extends LinearOpMode {
         backRight.setDirection(DcMotor.Direction.REVERSE);
         rightArm.setDirection(DcMotor.Direction.REVERSE);
 
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -87,7 +89,7 @@ public class mainControls extends LinearOpMode {
             }
 
 
-
+            telemetry.addData("Position", frontLeft.getCurrentPosition());
             telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.update();
 
