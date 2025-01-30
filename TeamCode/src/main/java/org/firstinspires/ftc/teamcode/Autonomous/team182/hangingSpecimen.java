@@ -52,7 +52,7 @@ public class hangingSpecimen extends LinearOpMode {
 //        move.movement(500, 0.5);
 //        move.sideways(1000, -0.8);
 //        move.range(20);
-        move.arm(1440);
+        move.arm(armUpPosition);
 
     }
 }

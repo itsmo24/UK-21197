@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "(004) Autonomous")
-public class Autonomous extends LinearOpMode {
+@Autonomous(name = "(004) Autonomous")
+public class Autonomous1 extends LinearOpMode {
 
      IMU imu_IMU;
      DcMotor back_left_motor;
