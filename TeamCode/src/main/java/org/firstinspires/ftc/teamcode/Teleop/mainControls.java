@@ -15,8 +15,8 @@ public class mainControls extends LinearOpMode {
     public void runOpMode(){
         // Initialize
         ElapsedTime runtime = new ElapsedTime();
-        CRServo frontLeft;
-        CRServo frontRight;
+        DcMotor frontLeft;
+        DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
         CRServo leftArm;
@@ -29,8 +29,8 @@ public class mainControls extends LinearOpMode {
         int armHomePosition = 0;
 
 
-        frontLeft  = hardwareMap.get(CRServo.class, "frontLeft");
-        frontRight = hardwareMap.get(CRServo.class, "frontRight");
+        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         leftArm = hardwareMap.get(CRServo.class, "leftArm");

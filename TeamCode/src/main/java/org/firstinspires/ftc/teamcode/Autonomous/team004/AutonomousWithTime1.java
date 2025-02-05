@@ -21,156 +21,156 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class AutonomousWithTime1 extends LinearOpMode{
     mainMethods move;
     IMU imu;
-    DcMotor back_left_motor;
-    DcMotor front_left_motor;
-    DcMotor front_right_motor;
-    DcMotor back_right_motor;
+    DcMotor backLeft;
+    DcMotor frontLeft;
+    DcMotor frontRight;
+    DcMotor backRight;
     YawPitchRollAngles orientation;
-    CRServo rightShoulder;
-    CRServo leftShoulder;
+    CRServo rightArm;
+    CRServo leftArm;
     CRServo wrist;
-    Servo claw;
-    DistanceSensor test_distance;
+    Servo gripper;
+    DistanceSensor rangeSensor;
 
     double inches = 24;
     public void forward(double distance, double power ){
 
-        back_left_motor.setPower(power);
-        back_right_motor.setPower(power);
-        front_left_motor.setPower(power);
-        front_right_motor.setPower(power);
+        backLeft.setPower(power);
+        backRight.setPower(power);
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
     public void backward(double distance, double power ){
 
-        back_left_motor.setPower(-power);
-        back_right_motor.setPower(-power);
-        front_left_motor.setPower(-power);
-        front_right_motor.setPower(-power);
+        backLeft.setPower(-power);
+        backRight.setPower(-power);
+        frontLeft.setPower(-power);
+        frontRight.setPower(-power);
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
     public void right(double distance, double power ){
-        back_left_motor.setPower(-power);
-        back_right_motor.setPower(power);
-        front_left_motor.setPower(power);
-        front_right_motor.setPower(-power);
+        backLeft.setPower(-power);
+        backRight.setPower(power);
+        frontLeft.setPower(power);
+        frontRight.setPower(-power);
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
     public void left(double distance, double power ){
-        back_left_motor.setPower(power);
-        back_right_motor.setPower(-power);
-        front_left_motor.setPower(-power);
-        front_right_motor.setPower(power);
+        backLeft.setPower(power);
+        backRight.setPower(-power);
+        frontLeft.setPower(-power);
+        frontRight.setPower(power);
         sleep((long) (1000 * (distance/inches)));
         stopMotors();
     }
     public void stopMotors() {
-        back_left_motor.setPower(0);
-        back_right_motor.setPower(0);
-        front_left_motor.setPower(0);
-        front_right_motor.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
     }
     double currentAngle;
     public void rotateCCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
         imu.resetYaw();
-        back_left_motor.setPower(-power);
-        back_right_motor.setPower(power);
-        front_left_motor.setPower(-power);
-        front_right_motor.setPower(power);
+        backLeft.setPower(-power);
+        backRight.setPower(power);
+        frontLeft.setPower(-power);
+        frontRight.setPower(power);
         while (currentAngle < targetOrientationAngle) {
             orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
-        back_left_motor.setPower(0);
-        back_right_motor.setPower(0);
-        front_left_motor.setPower(0);
-        front_right_motor.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
         sleep(250);
     }
     public void rotateCW(int targetOrientationAngle,float power) {
         currentAngle = 0;
 
         imu.resetYaw();
-        back_left_motor.setPower(power);
-        back_right_motor.setPower(-power);
-        front_left_motor.setPower(power);
-        front_right_motor.setPower(-power);
+        backLeft.setPower(power);
+        backRight.setPower(-power);
+        frontLeft.setPower(power);
+        frontRight.setPower(-power);
         while (-currentAngle < targetOrientationAngle) {
             orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
-        back_left_motor.setPower(0);
-        back_right_motor.setPower(0);
-        front_left_motor.setPower(0);
-        front_right_motor.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
         sleep(250);
     }
     public void sensor(int targetDistance,double power){
 
-        int currentDistance = (int) Math.round(test_distance.getDistance(DistanceUnit.CM));// If the distance in centimeters is less than 10, set the power to 0.3
+        int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));// If the distance in centimeters is less than 10, set the power to 0.3
 
 
         if (targetDistance < currentDistance){
-            back_left_motor.setPower(power);
-            back_right_motor.setPower(power);
-            front_left_motor.setPower(power);
-            front_right_motor.setPower(power);
-            currentDistance = (int) Math.round(test_distance.getDistance(DistanceUnit.CM));
+            backLeft.setPower(power);
+            backRight.setPower(power);
+            frontLeft.setPower(power);
+            frontRight.setPower(power);
+            currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         }
 
-        back_left_motor.setPower(0);
-        back_right_motor.setPower(0);
-        front_left_motor.setPower(0);
-        front_right_motor.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
 
         }
 
 
     public void grabber(boolean clawCheck){
         if (clawCheck){
-            claw.setPosition(0.1);
+            gripper.setPosition(0.1);
             sleep(200);
-            claw.setPosition(0.2);
+            gripper.setPosition(0.2);
             sleep(200);
-            claw.setPosition(0.3);
+            gripper.setPosition(0.3);
             sleep(200);
-            claw.setPosition(0.4);
+            gripper.setPosition(0.4);
             sleep(200);
-            claw.setPosition(0.5);
+            gripper.setPosition(0.5);
             sleep(200);
-            claw.setPosition(0.6);
+            gripper.setPosition(0.6);
             sleep(200);
-            claw.setPosition(0.7);
+            gripper.setPosition(0.7);
             sleep(200);
-            claw.setPosition(0.8);
+            gripper.setPosition(0.8);
             sleep(200);
-            claw.setPosition(0.9);
+            gripper.setPosition(0.9);
             sleep(200);
-            claw.setPosition(1);
+            gripper.setPosition(1);
             sleep(500);
         }
         else{
-            claw.setPosition(0.9);
+            gripper.setPosition(0.9);
             sleep(200);
-            claw.setPosition(0.8);
+            gripper.setPosition(0.8);
             sleep(200);
-            claw.setPosition(0.7);
+            gripper.setPosition(0.7);
             sleep(200);
-            claw.setPosition(0.6);
+            gripper.setPosition(0.6);
             sleep(200);
-            claw.setPosition(0.5);
+            gripper.setPosition(0.5);
             sleep(200);
-            claw.setPosition(0.4);
+            gripper.setPosition(0.4);
             sleep(200);
-            claw.setPosition(0.3);
+            gripper.setPosition(0.3);
             sleep(200);
-            claw.setPosition(0.2);
+            gripper.setPosition(0.2);
             sleep(200);
-            claw.setPosition(0);
+            gripper.setPosition(0);
             sleep(1400);
 
         }
@@ -182,15 +182,15 @@ public class AutonomousWithTime1 extends LinearOpMode{
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         move = new mainMethods(hardwareMap);
-        back_right_motor = hardwareMap.get(DcMotor.class, "backRight");
-        back_left_motor = hardwareMap.get(DcMotor.class, "backLeft");
-        front_right_motor = hardwareMap.get(DcMotor.class, "frontRight");
-        front_left_motor = hardwareMap.get(DcMotor.class, "frontLeft");
-        rightShoulder = hardwareMap.get(CRServo.class, "rightArm");
-        leftShoulder = hardwareMap.get(CRServo.class, "leftArm");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        rightArm = hardwareMap.get(CRServo.class, "rightArm");
+        leftArm = hardwareMap.get(CRServo.class, "leftArm");
         wrist = hardwareMap.get(CRServo.class, "wrist");
-        claw = hardwareMap.get(Servo.class, "gripper");
-        test_distance = hardwareMap.get(DistanceSensor.class, "test_distance");
+        gripper = hardwareMap.get(Servo.class, "gripper");
+        rangeSensor = hardwareMap.get(DistanceSensor.class, "test_distance");
 
 
 
@@ -202,15 +202,15 @@ public class AutonomousWithTime1 extends LinearOpMode{
         imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT)));
         // Prompt user to press start button.
 
-        back_left_motor.setDirection(DcMotor.Direction.REVERSE);
-        front_left_motor.setDirection(DcMotor.Direction.REVERSE);
-        rightShoulder.setDirection(CRServo.Direction.REVERSE);
-        claw.setPosition(1);
-        back_right_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        front_right_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        front_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        back_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        rightArm.setDirection(CRServo.Direction.REVERSE);
+        gripper.setPosition(1);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
 
@@ -245,7 +245,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
       /*sleep(100);
       backward(4,1);
       sleep(250);
-      grabber(true);
+      gripper(true);
       wrist.setPower(0.6);
       sleep(1600);
       wrist.setPower(0);
