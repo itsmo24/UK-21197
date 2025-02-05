@@ -12,11 +12,14 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
+
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "(004) AutonomousWithTime")
 
 public class AutonomousWithTime1 extends LinearOpMode{
+    mainMethods move;
     IMU imu;
     DcMotor back_left_motor;
     DcMotor front_left_motor;
@@ -178,6 +181,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+        move = new mainMethods(hardwareMap);
         back_right_motor = hardwareMap.get(DcMotor.class, "backRight");
         back_left_motor = hardwareMap.get(DcMotor.class, "backLeft");
         front_right_motor = hardwareMap.get(DcMotor.class, "frontRight");
@@ -192,6 +196,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
         imu = hardwareMap.get(IMU.class, "imu");
+        int armUpPosition = 430;
 
 
         imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT)));
@@ -205,6 +210,9 @@ public class AutonomousWithTime1 extends LinearOpMode{
         front_right_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         front_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         back_left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        imu.resetYaw();
 
         waitForStart();
 
@@ -215,27 +223,17 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
             sensor(30,1);
-            sensor(1,0.2);
-            rightShoulder.setPower(-0.6);
-            leftShoulder.setPower(-0.6);
-            sleep(1600);
-            rightShoulder.setPower(0);
-            leftShoulder.setPower(0);
+            sensor(1,0);
+            move.arm(armUpPosition);
             wrist.setPower(-0.4);
             sleep(1600);
             wrist.setPower(0);
-            rightShoulder.setPower(0.6);
-            leftShoulder.setPower(0.6);
-            sleep(1100);
-            rightShoulder.setPower(0);
-            leftShoulder.setPower(0);
+            move.arm(-200);
 
 
 
             grabber( false);
-            rightShoulder.setPower(0.6);
-            leftShoulder.setPower(0.6);
-            sleep(500);
+            move.arm(-230);
             wrist.setPower(0.4);
             sleep(1600);
             wrist.setPower(0);
