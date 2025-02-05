@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "(004) AutonomousWithTime")
 
 public class AutonomousWithTime1 extends LinearOpMode{
-    IMU imu_IMU;
+    IMU imu;
     DcMotor back_left_motor;
     DcMotor front_left_motor;
     DcMotor front_right_motor;
@@ -73,13 +73,13 @@ public class AutonomousWithTime1 extends LinearOpMode{
     double currentAngle;
     public void rotateCCW(int targetOrientationAngle, float power) {
         currentAngle = 0;
-        imu_IMU.resetYaw();
+        imu.resetYaw();
         back_left_motor.setPower(-power);
         back_right_motor.setPower(power);
         front_left_motor.setPower(-power);
         front_right_motor.setPower(power);
         while (currentAngle < targetOrientationAngle) {
-            orientation = imu_IMU.getRobotYawPitchRollAngles();
+            orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
         back_left_motor.setPower(0);
@@ -91,13 +91,13 @@ public class AutonomousWithTime1 extends LinearOpMode{
     public void rotateCW(int targetOrientationAngle,float power) {
         currentAngle = 0;
 
-        imu_IMU.resetYaw();
+        imu.resetYaw();
         back_left_motor.setPower(power);
         back_right_motor.setPower(-power);
         front_left_motor.setPower(power);
         front_right_motor.setPower(-power);
         while (-currentAngle < targetOrientationAngle) {
-            orientation = imu_IMU.getRobotYawPitchRollAngles();
+            orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
         back_left_motor.setPower(0);
@@ -125,6 +125,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         front_right_motor.setPower(0);
 
         }
+
 
     public void grabber(boolean clawCheck){
         if (clawCheck){
@@ -189,10 +190,11 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
 
-        imu_IMU = hardwareMap.get(IMU.class, "imu");
+
+        imu = hardwareMap.get(IMU.class, "imu");
 
 
-        imu_IMU.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT)));
+        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT)));
         // Prompt user to press start button.
 
         back_left_motor.setDirection(DcMotor.Direction.REVERSE);

@@ -14,12 +14,11 @@ public class mainControls extends LinearOpMode {
     @Override
     public void runOpMode(){
         // Initialize
-        mainMethods move;
         ElapsedTime runtime = new ElapsedTime();
-        DcMotor frontLeft;
-        DcMotor frontRight;
+        CRServo frontLeft;
+        CRServo frontRight;
         DcMotor backLeft;
-        CRServo backRight;
+        DcMotor backRight;
         CRServo leftArm;
         CRServo rightArm;
         Servo gripper;
@@ -29,28 +28,26 @@ public class mainControls extends LinearOpMode {
         double gripperOpenPosition = 0;
         int armHomePosition = 0;
 
-        move = new mainMethods(hardwareMap);
-        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+
+        frontLeft  = hardwareMap.get(CRServo.class, "frontLeft");
+        frontRight = hardwareMap.get(CRServo.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(CRServo.class, "backRight");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
         leftArm = hardwareMap.get(CRServo.class, "leftArm");
         rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
 
 
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(CRServo.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(CRServo.Direction.REVERSE);
         leftArm.setDirection(DcMotor.Direction.REVERSE);
 
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
 
         waitForStart();
         // Start
@@ -67,13 +64,15 @@ public class mainControls extends LinearOpMode {
             backRight.setPower(bottomRightPower);
 
 
+
+
             //ARM & WRIST
             rightArm.setPower(gamepad2.left_stick_y);
             leftArm.setPower(gamepad2.left_stick_y);
             wrist.setPower(gamepad2.right_stick_y);
 
             // HANGING BUTTON
-            if (gamepad2.dpad_up){
+            if (gamepad2.triangle){
                 rightArm.setPower(rightArm.getPower());
                 leftArm.setPower(leftArm.getPower());
                 sleep(99999999);
@@ -88,7 +87,7 @@ public class mainControls extends LinearOpMode {
             }
 
 
-            telemetry.addData("Position", frontLeft.getCurrentPosition());
+
             telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.update();
 
