@@ -190,7 +190,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         leftArm = hardwareMap.get(CRServo.class, "leftArm");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         gripper = hardwareMap.get(Servo.class, "gripper");
-        rangeSensor = hardwareMap.get(DistanceSensor.class, "test_distance");
+        rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
 
 
 
@@ -222,8 +222,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         if (opModeIsActive()) {
 
 
-            sensor(30,1);
-            sensor(1,0);
+            move.range(1);
             move.arm(armUpPosition);
             wrist.setPower(-0.4);
             sleep(1600);

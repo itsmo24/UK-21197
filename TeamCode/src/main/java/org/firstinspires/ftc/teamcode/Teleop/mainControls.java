@@ -19,8 +19,8 @@ public class mainControls extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
-        CRServo leftArm;
-        CRServo rightArm;
+        DcMotor leftArm;
+        DcMotor rightArm;
         Servo gripper;
         CRServo wrist;
 
@@ -33,8 +33,8 @@ public class mainControls extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm= hardwareMap.get(CRServo.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
 
