@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@TeleOp(name = "Main Controls182")
-public class mainControls extends LinearOpMode {
+@TeleOp(name = "(182) Main Controls")
+public class mainControls182 extends LinearOpMode {
     @Override
     public void runOpMode(){
         // Initialize
@@ -18,36 +18,36 @@ public class mainControls extends LinearOpMode {
         DcMotor frontLeft;
         DcMotor frontRight;
         DcMotor backLeft;
-        DcMotor backRight;
-        DcMotor leftArm;
-        DcMotor rightArm;
+        CRServo backRight;
+        CRServo leftArm;
+        CRServo rightArm;
         Servo gripper;
         CRServo wrist;
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
-        int armHomePosition = 0;
-
 
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
-        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
-        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
+        backRight = hardwareMap.get(CRServo.class, "backRight");
+        leftArm = hardwareMap.get(CRServo.class, "leftArm");
+        rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
 
 
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(CRServo.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(CRServo.Direction.REVERSE);
         leftArm.setDirection(DcMotor.Direction.REVERSE);
 
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
 
         waitForStart();
         // Start
@@ -62,8 +62,6 @@ public class mainControls extends LinearOpMode {
             frontRight.setPower(topRightPower);
             backLeft.setPower(bottomLeftPower);
             backRight.setPower(bottomRightPower);
-
-
 
 
             //ARM & WRIST
@@ -87,7 +85,7 @@ public class mainControls extends LinearOpMode {
             }
 
 
-
+            telemetry.addData("Position", frontLeft.getCurrentPosition());
             telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.update();
 
