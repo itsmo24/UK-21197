@@ -233,7 +233,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
             grabber( false);
             move.arm(-230);
-            wrist.setPower(0.4);
+            wrist.setPower(0.7);
             sleep(1600);
             wrist.setPower(0);
 
