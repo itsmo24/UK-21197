@@ -16,9 +16,9 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous(name = "(004) Autonomousteamside")
+@Autonomous(name = "(004) AutonomousOtherSide")
 
-public class AutonomousWithTime1 extends LinearOpMode{
+public class AutonomousOtherSide extends LinearOpMode{
     mainMethods move;
     IMU imu;
     DcMotor backLeft;
@@ -127,7 +127,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         frontLeft.setPower(0);
         frontRight.setPower(0);
 
-        }
+    }
 
 
     public void grabber(boolean clawCheck){
@@ -292,6 +292,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
     // todo: write your code here
 }
+
 
 
 

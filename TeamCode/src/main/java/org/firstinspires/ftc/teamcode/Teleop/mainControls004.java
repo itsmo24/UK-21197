@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@TeleOp(name = "Main Controls182")
-public class mainControls extends LinearOpMode {
+@TeleOp(name = "Main Controls004")
+public class mainControls004 extends LinearOpMode {
     @Override
     public void runOpMode(){
         // Initialize
@@ -19,8 +19,8 @@ public class mainControls extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
-        DcMotor leftArm;
-        DcMotor rightArm;
+        CRServo leftArm;
+        CRServo rightArm;
         Servo gripper;
         CRServo wrist;
 
@@ -33,8 +33,8 @@ public class mainControls extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
-        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(CRServo.class, "leftArm");
+        rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
 
