@@ -244,6 +244,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
       /*sleep(100);
+
       backward(4,1);
       sleep(250);
       gripper(true);
