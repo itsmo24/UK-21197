@@ -152,7 +152,7 @@ public class mainMethods {
         else {
             power =  (Math.abs(num1 - num2) / num2);
         }
-        if (power < 0.2){
+        if (power < 0.2 & power > 0) {
             power = 0.2;
         }
         return power;
