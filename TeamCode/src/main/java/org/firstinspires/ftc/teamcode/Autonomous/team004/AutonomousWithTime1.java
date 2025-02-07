@@ -210,7 +210,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
 
@@ -222,7 +222,8 @@ public class AutonomousWithTime1 extends LinearOpMode{
         if (opModeIsActive()) {
 
 
-            move.range(1);
+
+            move.range(20);
             move.arm(armUpPosition);
             telemetry.addData("Encoder Values", "FL: %d");
             wrist.setPower(-0.4);
@@ -233,7 +234,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
             grabber( false);
-            move.arm(-230);
+            move.arm(300);
             wrist.setPower(0.4);
             sleep(1600);
             wrist.setPower(0);

@@ -18,9 +18,9 @@ public class mainControls182 extends LinearOpMode {
         DcMotor frontLeft;
         DcMotor frontRight;
         DcMotor backLeft;
-        CRServo backRight;
-        CRServo leftArm;
-        CRServo rightArm;
+        DcMotor backRight;
+        DcMotor leftArm;
+        DcMotor rightArm;
         Servo gripper;
         CRServo wrist;
 
@@ -30,9 +30,9 @@ public class mainControls182 extends LinearOpMode {
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(CRServo.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm= hardwareMap.get(CRServo.class, "rightArm");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
 
@@ -41,11 +41,8 @@ public class mainControls182 extends LinearOpMode {
         backRight.setDirection(CRServo.Direction.REVERSE);
         leftArm.setDirection(DcMotor.Direction.REVERSE);
 
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         telemetry.addData("Status", "Initialized");
 
