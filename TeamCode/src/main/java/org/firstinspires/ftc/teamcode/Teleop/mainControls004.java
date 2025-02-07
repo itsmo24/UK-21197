@@ -52,10 +52,10 @@ public class mainControls004 extends LinearOpMode {
         // Start
         while (opModeIsActive()) {
             // Movement
-            double topLeftPower = gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double bottomLeftPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double topRightPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-            double bottomRightPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
+            double topLeftPower = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+            double bottomLeftPower = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+            double topRightPower = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
+            double bottomRightPower = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
             frontLeft.setPower(topLeftPower);
             frontRight.setPower(topRightPower);
