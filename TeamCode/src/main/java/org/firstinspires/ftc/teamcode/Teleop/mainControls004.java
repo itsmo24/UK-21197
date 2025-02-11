@@ -66,8 +66,8 @@ public class mainControls004 extends LinearOpMode {
 
 
             //ARM & WRIST
-            rightArm.setPower(gamepad2.left_stick_y);
-            leftArm.setPower(gamepad2.left_stick_y);
+            rightArm.setPower(-gamepad2.left_stick_y);
+            leftArm.setPower(-gamepad2.left_stick_y);
             wrist.setPower(gamepad2.right_stick_y);
 
             // HANGING BUTTON

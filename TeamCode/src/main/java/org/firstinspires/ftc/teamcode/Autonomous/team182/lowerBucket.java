@@ -18,14 +18,16 @@ public class lowerBucket extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor frontLeft;
-        CRServo rightArm;
+        DcMotor rightArm;
+        DcMotor leftArm;
 
         move = new mainMethods(hardwareMap);
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        rightArm = hardwareMap.get(CRServo.class, "rightArm");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "rightArm");
         imu = hardwareMap.get(IMU.class, "imu");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -36,8 +38,10 @@ public class lowerBucket extends LinearOpMode {
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
 

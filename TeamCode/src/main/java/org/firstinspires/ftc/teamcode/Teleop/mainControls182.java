@@ -38,8 +38,11 @@ public class mainControls182 extends LinearOpMode {
 
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(CRServo.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
         leftArm.setDirection(DcMotor.Direction.REVERSE);
+
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

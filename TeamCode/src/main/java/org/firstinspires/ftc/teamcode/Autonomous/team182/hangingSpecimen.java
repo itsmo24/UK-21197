@@ -19,41 +19,44 @@ public class hangingSpecimen extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor frontLeft;
-        CRServo rightArm;
+        DcMotor rightArm;
+        DcMotor leftArm;
 
         move = new mainMethods(hardwareMap);
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        rightArm = hardwareMap.get(CRServo.class, "rightArm");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
         imu = hardwareMap.get(IMU.class, "imu");
 
         int armUpPosition = 430;
 
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
-        
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 //        move.movement(500, 0.5);
 //        move.sideways(1000, -0.8);
-//        move.range(20);
-        move.arm(armUpPosition);
+        move.range(20);
+        //move.arm(armUpPosition);
         // sleep(999999);
-        move.movement(3000, 0.3);
+        //move.movement(3000, 0.3);
     }
 }

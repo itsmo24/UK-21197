@@ -21,8 +21,8 @@ public class mainMethods {
     DcMotor frontRight;
     DcMotor backLeft;
     DcMotor frontLeft;
-    CRServo rightArm;
-    CRServo leftArm;
+    DcMotor rightArm;
+    DcMotor leftArm;
     CRServo wrist;
     Servo gripper;
     DistanceSensor rangeSensor;
@@ -44,8 +44,8 @@ public class mainMethods {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        rightArm = hardwareMap.get(CRServo.class, "rightArm");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         gripper = hardwareMap.get(Servo.class, "gripper");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");

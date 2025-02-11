@@ -221,8 +221,23 @@ public class AutonomousOtherSide extends LinearOpMode{
 
         if (opModeIsActive()) {
 
+            backward(20, 1);
 
-            move.range(1);
+            telemetry.addData("Encoder Values", "FL: %d");
+
+            sleep(1600);
+            wrist.setPower(0);
+            move.arm(200);
+
+
+
+            grabber( false);
+            move.arm(0);
+            wrist.setPower(0.4);
+            sleep(1600);
+            wrist.setPower(0);
+
+           /* move.range(1);
             move.arm(armUpPosition);
             telemetry.addData("Encoder Values", "FL: %d");
             wrist.setPower(-0.4);
@@ -238,7 +253,7 @@ public class AutonomousOtherSide extends LinearOpMode{
             sleep(1600);
             wrist.setPower(0);
 
-
+*/
 
 
 
