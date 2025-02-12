@@ -24,6 +24,9 @@ public class mainControls182 extends LinearOpMode {
         Servo gripper;
         CRServo wrist;
 
+        double drive, turn, strafe;
+        double frPower, flPower, brPower, blPower;
+
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
 
@@ -53,15 +56,26 @@ public class mainControls182 extends LinearOpMode {
         // Start
         while (opModeIsActive()) {
             // Movement
-            double topLeftPower = gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double bottomLeftPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double topRightPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-            double bottomRightPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
+//            flPower = gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+//            frPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
+//            blPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+//            brPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
+//
 
-            frontLeft.setPower(topLeftPower);
-            frontRight.setPower(topRightPower);
-            backLeft.setPower(bottomLeftPower);
-            backRight.setPower(bottomRightPower);
+            drive = gamepad1.left_stick_y*-1;
+            turn = gamepad1.right_stick_x;
+            strafe = gamepad1.left_stick_x;
+
+            flPower = drive + turn + strafe;
+            frPower = drive - turn - strafe;
+            blPower = drive + turn - strafe;
+            brPower = drive - turn + strafe;
+
+            frontLeft.setPower(flPower);
+            frontRight.setPower(frPower);
+            backLeft.setPower(blPower);
+            backRight.setPower(brPower);
+
 
 
             //ARM & WRIST
