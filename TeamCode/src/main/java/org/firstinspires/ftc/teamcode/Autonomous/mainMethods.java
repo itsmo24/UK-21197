@@ -95,7 +95,7 @@ public class mainMethods {
 
     public void arm(int targetPosition){
         double power;
-        int currentPosition = frontLeft.getCurrentPosition();
+        int currentPosition = rightArm.getCurrentPosition();
         while (targetPosition != currentPosition){
             if (targetPosition > currentPosition){
                 power = -decimal(targetPosition, currentPosition);
@@ -145,15 +145,11 @@ public class mainMethods {
     public double decimal(double num1, double num2){
         double power;
         num1 = Math.abs(num1);
-        num2 = Math.abs(num2);
-        if (num1 > num2){
-            power =  (Math.abs(num1 - num2) / num1);
-        }
-        else {
-            power =  (Math.abs(num1 - num2) / num2);
-        }
+        power =  ( num1 / num2);
         if (power < 0.2 & power > 0) {
             power = 0.2;
+        } else {
+            power = 1;
         }
         return power;
     }
@@ -162,12 +158,13 @@ public class mainMethods {
         double power;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
+        int amountToTurn = Math.abs(currentAngle-targetAngle);
         while (currentAngle != targetAngle){
             // Checking to see if needed to turn right or left
             if (currentAngle > targetAngle){
-                power = -decimal(currentAngle, targetAngle);
+                power = -decimal(currentAngle, amountToTurn);
             } else {
-                power = decimal(currentAngle, targetAngle);
+                power = decimal(currentAngle, amountToTurn);
             }
 
             // Turning right if power is positive
@@ -183,12 +180,13 @@ public class mainMethods {
     public void range(int targetDistance){
         double power;
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
+        double amountToGo = Math.abs(currentDistance-targetDistance);
 
         while (targetDistance != currentDistance){
             if (targetDistance > currentDistance){
-                power = -decimal(currentDistance, targetDistance);
+                power = -decimal(currentDistance, amountToGo);
             } else {
-                power = decimal(currentDistance, targetDistance);
+                power = decimal(currentDistance, amountToGo);
             }
             backLeft.setPower(power);
             backRight.setPower(power);

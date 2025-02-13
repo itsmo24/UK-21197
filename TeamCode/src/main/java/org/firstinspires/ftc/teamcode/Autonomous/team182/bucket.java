@@ -2,17 +2,15 @@ package org.firstinspires.ftc.teamcode.Autonomous.team182;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
-
-@Autonomous(name = "(182) Hanging Specimen")
-public class hangingSpecimen extends LinearOpMode {
+@Autonomous(name = "(182) bucket")
+public class bucket extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         mainMethods move;
         IMU imu;
         DcMotor backRight;
@@ -28,13 +26,11 @@ public class hangingSpecimen extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
-        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+        leftArm = hardwareMap.get(DcMotor.class, "rightArm");
         imu = hardwareMap.get(IMU.class, "imu");
 
-        int armUpPosition = 430;
-
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -52,11 +48,8 @@ public class hangingSpecimen extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-//        move.movement(500, 0.5);
-//        move.sideways(1000, -0.8);
-        move.range(20);
-        //move.arm(armUpPosition);
-        // sleep(999999);
-        //move.movement(3000, 0.3);
+
+
+
     }
 }
