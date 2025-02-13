@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,14 +13,17 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 @TeleOp(name = "(004) Main Controls")
 public class mainControls004 extends LinearOpMode {
+
     @Override
     public void runOpMode(){
         // Initialize
+
         ElapsedTime runtime = new ElapsedTime();
-        DcMotor frontLeft;
-        DcMotor frontRight;
-        DcMotor backLeft;
-        DcMotor backRight;
+        PIDFCoefficients pidfCoefficients;
+        DcMotorEx frontLeft;
+        DcMotorEx frontRight;
+        DcMotorEx backLeft;
+        DcMotorEx backRight;
         CRServo leftArm;
         CRServo rightArm;
         Servo gripper;
@@ -28,10 +33,10 @@ public class mainControls004 extends LinearOpMode {
         double gripperOpenPosition = 0;
 
 
-        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontLeft  = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+        backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
+        backRight = hardwareMap.get(DcMotorEx.class, "backRight");
         leftArm = hardwareMap.get(CRServo.class, "leftArm");
         rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
@@ -41,6 +46,22 @@ public class mainControls004 extends LinearOpMode {
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(CRServo.Direction.REVERSE);
         leftArm.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
+        frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
+        backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
+        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
+
+        //32767/maxvelocity
+
+
 
 
 
@@ -52,15 +73,16 @@ public class mainControls004 extends LinearOpMode {
         // Start
         while (opModeIsActive()) {
             // Movement
-            double topLeftPower = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double bottomLeftPower = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double topRightPower = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-            double bottomRightPower = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
+            double topLeftSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+            double bottomLeftSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+            double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
+            double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
-            frontLeft.setPower(topLeftPower);
-            frontRight.setPower(topRightPower);
-            backLeft.setPower(bottomLeftPower);
-            backRight.setPower(bottomRightPower);
+            frontLeft.setVelocity(topLeftSpeed);
+            frontRight.setVelocity(topRightSpeed);
+            backLeft.setVelocity(bottomLeftSpeed);
+            backRight.setVelocity(bottomRightSpeed);
+            //backLeft.set
 
 
 
