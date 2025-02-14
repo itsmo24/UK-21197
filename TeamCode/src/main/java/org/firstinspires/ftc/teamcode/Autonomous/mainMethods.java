@@ -160,14 +160,14 @@ public class mainMethods {
         double power;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
-        int amountToTurnStart = Math.abs(currentAngle-targetAngle);
+        int angleToTurn = Math.abs(currentAngle-targetAngle);
         while (currentAngle != targetAngle){
             int amountToTurn = Math.abs(currentAngle-targetAngle);
             // Checking to see if needed to turn right or left
             if (currentAngle > targetAngle){
-                power = -decimal(amountToTurn, amountToTurnStart);
+                power = -decimal(amountToTurn, angleToTurn);
             } else {
-                power = decimal(amountToTurn, amountToTurnStart);
+                power = decimal(amountToTurn, angleToTurn);
             }
 
             // Turning right if power is positive
@@ -183,13 +183,14 @@ public class mainMethods {
     public void range(int targetDistance){
         double power;
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
-        double amountToGo = Math.abs(currentDistance-targetDistance);
+        double distanceToTravel = Math.abs(currentDistance-targetDistance);
 
         while (targetDistance != currentDistance){
+            double distanceToGo = Math.abs(currentDistance-targetDistance);
             if (targetDistance > currentDistance){
-                power = -decimal(currentDistance, amountToGo);
+                power = -decimal(distanceToGo, distanceToTravel);
             } else {
-                power = decimal(currentDistance, amountToGo);
+                power = decimal(distanceToGo, distanceToTravel);
             }
             backLeft.setPower(power);
             backRight.setPower(power);

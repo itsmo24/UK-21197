@@ -62,7 +62,7 @@ public class mainControls182 extends LinearOpMode {
 //            brPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 //
 
-            drive = gamepad1.left_stick_y*-1;
+            drive = gamepad1.left_stick_y;
             turn = gamepad1.right_stick_x;
             strafe = gamepad1.left_stick_x;
 
