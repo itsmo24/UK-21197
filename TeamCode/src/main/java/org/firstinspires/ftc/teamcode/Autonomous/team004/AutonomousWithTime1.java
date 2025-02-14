@@ -128,6 +128,15 @@ public class AutonomousWithTime1 extends LinearOpMode{
         frontRight.setPower(0);
 
         }
+    /*public void armUp(double angle, double power ){
+
+        backLeft.setPower(power);
+        backRight.setPower(power);
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
+        sleep((long) (1000 * (angle/)));
+        stopMotors();
+    }*/
 
 
     public void grabber(boolean clawCheck){
@@ -210,7 +219,6 @@ public class AutonomousWithTime1 extends LinearOpMode{
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         imu.resetYaw();
 
@@ -223,7 +231,7 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
 
-            move.range(20);
+            move.range(10);
             move.arm(armUpPosition);
             telemetry.addData("Encoder Values", "FL: %d");
             wrist.setPower(-0.4);

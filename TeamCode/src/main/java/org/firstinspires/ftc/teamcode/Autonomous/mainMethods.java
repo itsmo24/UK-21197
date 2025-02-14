@@ -145,11 +145,13 @@ public class mainMethods {
     public double decimal(double num1, double num2){
         double power;
         num1 = Math.abs(num1);
-        power =  ( num1 / num2);
+        power =  (num1 / num2);
         if (power < 0.2 & power > 0) {
             power = 0.2;
-        } else {
+        } else if (power > 0.2) {
             power = 1;
+        } else {
+            power = 0;
         }
         return power;
     }
@@ -158,13 +160,14 @@ public class mainMethods {
         double power;
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
-        int amountToTurn = Math.abs(currentAngle-targetAngle);
+        int amountToTurnStart = Math.abs(currentAngle-targetAngle);
         while (currentAngle != targetAngle){
+            int amountToTurn = Math.abs(currentAngle-targetAngle);
             // Checking to see if needed to turn right or left
             if (currentAngle > targetAngle){
-                power = -decimal(currentAngle, amountToTurn);
+                power = -decimal(amountToTurn, amountToTurnStart);
             } else {
-                power = decimal(currentAngle, amountToTurn);
+                power = decimal(amountToTurn, amountToTurnStart);
             }
 
             // Turning right if power is positive
