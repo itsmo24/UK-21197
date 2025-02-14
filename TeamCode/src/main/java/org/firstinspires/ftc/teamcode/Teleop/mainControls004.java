@@ -52,8 +52,8 @@ public class mainControls004 extends LinearOpMode {
 
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(CRServo.Direction.REVERSE);
-        leftArm.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        leftArm.setDirection(CRServo.Direction.REVERSE);
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -90,10 +90,10 @@ public class mainControls004 extends LinearOpMode {
             double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
             double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
-            frontLeft.setPower(topLeftSpeed);
-            frontRight.setPower(topRightSpeed);
-            backLeft.setPower(bottomLeftSpeed);
-            backRight.setPower(bottomRightSpeed);
+            frontLeft.setVelocity(topLeftSpeed);
+            frontRight.setVelocity(topRightSpeed);
+            backLeft.setVelocity(bottomLeftSpeed);
+            backRight.setVelocity(bottomRightSpeed);
             //backLeft.set
             FL = (backLeft.getVelocity());
             FR = (backLeft.getVelocity());

@@ -11,10 +11,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 public class MaxVelocityTest extends LinearOpMode {
 
-    DcMotorEx frontLeft;
+    DcMotorEx frontRight;
     DcMotorEx backRight;
     DcMotorEx backLeft;
-    DcMotorEx frontRight;
+    DcMotorEx frontLeft;
     IMU imu;
 
     double currentVelocity;
@@ -26,7 +26,7 @@ public class MaxVelocityTest extends LinearOpMode {
 
     public void runOpMode() {
 
-        frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
 
         waitForStart();
 
@@ -36,8 +36,8 @@ public class MaxVelocityTest extends LinearOpMode {
 
 
 
-            currentVelocity = frontLeft.getVelocity();
-            frontLeft.setPower(1);
+            currentVelocity = frontRight.getVelocity();
+            frontRight.setPower(1);
 
 
             if (currentVelocity > maxVelocity) {
