@@ -85,15 +85,20 @@ public class mainControls004 extends LinearOpMode {
         // Start
         while (opModeIsActive()) {
             // Movement
+
+
+
+
+
             double topLeftSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
             double bottomLeftSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
             double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
             double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
-            frontLeft.setVelocity(topLeftSpeed);
-            frontRight.setVelocity(topRightSpeed);
-            backLeft.setVelocity(bottomLeftSpeed);
-            backRight.setVelocity(bottomRightSpeed);
+            frontLeft.setVelocity(2000*topLeftSpeed);
+            frontRight.setVelocity(2000*topRightSpeed);
+            backLeft.setVelocity(2000*bottomLeftSpeed);
+            backRight.setVelocity(2000*bottomRightSpeed);
             //backLeft.set
             FL = (backLeft.getVelocity());
             FR = (backLeft.getVelocity());
@@ -144,8 +149,8 @@ public class mainControls004 extends LinearOpMode {
 
 
 
-            telemetry.addData("Status", "Run Time: " + runtime);
-            telemetry.update();
+            //telemetry.addData("Status", "Run Time: " + runtime);
+            //telemetry.update();
 
         }
     }
