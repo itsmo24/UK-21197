@@ -1,44 +1,30 @@
-package org.firstinspires.ftc.teamcode.Teleop;
+package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 
-@TeleOp
-
-public class MaxVelocityTest extends LinearOpMode {
-
-    DcMotorEx frontLeft;
-    DcMotorEx backRight;
-    DcMotorEx backLeft;
-    DcMotorEx frontRight;
-    IMU imu;
-
-    double currentVelocity;
-
-    double maxVelocity = 0.0;
-
+@Autonomous(name = "testSetVelocity")
+public class testSetVelocity extends LinearOpMode {
 
     @Override
-
     public void runOpMode() {
+        DcMotorEx frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        double currentVelocity;
 
-        frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
-
+        double maxVelocity = 0.0;
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         waitForStart();
 
-
+        // Start
         while (opModeIsActive()) {
-
-
-
-
             currentVelocity = frontLeft.getVelocity();
-            frontLeft.setPower(1);
 
+            frontLeft.setVelocity(3160);
 
             if (currentVelocity > maxVelocity) {
 
@@ -54,16 +40,6 @@ public class MaxVelocityTest extends LinearOpMode {
             telemetry.addData("maximum velocity", maxVelocity);
 
             telemetry.update();
-            //004
-            //front left max velocity is 2860
-            //back left max velocity is 2720
-            //front right max velocity is 980
-            //back right max velocity is 2900
-            //182
-
-
         }
-
     }
-
 }

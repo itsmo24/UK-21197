@@ -19,7 +19,7 @@ public class mainControls004 extends LinearOpMode {
         // Initialize
 
         ElapsedTime runtime = new ElapsedTime();
-        PIDFCoefficients pidfCoefficients;
+        //PIDFCoefficients pidfCoefficients;
         DcMotorEx frontLeft;
         DcMotorEx frontRight;
         DcMotorEx backLeft;
@@ -31,6 +31,14 @@ public class mainControls004 extends LinearOpMode {
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
+        double FL;
+        double FLMax = 0.0;
+        double FR;
+        double FRMax = 0.0;
+        double BL;
+        double BLMax = 0.0;
+        double BR;
+        double BRMax = 0.0;
 
 
         frontLeft  = hardwareMap.get(DcMotorEx.class, "frontLeft");
@@ -54,15 +62,18 @@ public class mainControls004 extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
-        frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
-        backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
-        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
-
-        //32767/maxvelocity
+        //frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
+        //frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
+        //backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
+        //backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
+        //front left max velocity is 2860
+        //back left max velocity is 2720
+        //front right max velocity is 980
+        //back right max velocity is 2900
+        //32767/FLMax
         //https://ftctechnh.github.io/ftc_app/doc/javadoc/com/qualcomm/robotcore/hardware/DcMotorEx.html#getVelocity-org.firstinspires.ftc.robotcore.external.navigation.AngleUnit-
-//https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit?tab=t.0#heading=h.h2mitzlvr4py
-//https://github.com/NoahBres/VelocityPIDTuningTutorial/blob/master/README.md
+        //https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit?tab=t.0#heading=h.h2mitzlvr4py
+        //https://github.com/NoahBres/VelocityPIDTuningTutorial/blob/master/README.md
 
 
 
@@ -79,14 +90,37 @@ public class mainControls004 extends LinearOpMode {
             double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
             double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
-            frontLeft.setVelocity(topLeftSpeed);
-            frontRight.setVelocity(topRightSpeed);
-            backLeft.setVelocity(bottomLeftSpeed);
-            backRight.setVelocity(bottomRightSpeed);
+            frontLeft.setPower(topLeftSpeed);
+            frontRight.setPower(topRightSpeed);
+            backLeft.setPower(bottomLeftSpeed);
+            backRight.setPower(bottomRightSpeed);
             //backLeft.set
+            FL = (backLeft.getVelocity());
+            FR = (backLeft.getVelocity());
+            BR = (backLeft.getVelocity());
+            BL = (backLeft.getVelocity());
+            if (FL > FLMax) {
+                FLMax = FL;
+            }
+            if (FR > FRMax) {
+                FRMax = FR;
+            }
+            if (BR > BRMax) {
+                BRMax = BR;
+            }
+            if (BL > BLMax) {
+                BLMax = BL;
+            }
+            telemetry.addData("FL:", FL);
+            telemetry.addData("FLMax:", FLMax);
+            telemetry.addData("FR:", FR);
+            telemetry.addData("FRMax:", FRMax);
+            telemetry.addData("BL:", BL);
+            telemetry.addData("BLMax:", BLMax);
+            telemetry.addData("BR:", BR);
+            telemetry.addData("BRMax:", BRMax);
 
-
-
+            telemetry.update();
 
             //ARM & WRIST
             rightArm.setPower(-gamepad2.left_stick_y);
