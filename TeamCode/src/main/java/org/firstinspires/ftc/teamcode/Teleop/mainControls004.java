@@ -62,7 +62,7 @@ public class mainControls004 extends LinearOpMode {
         //32767/maxvelocity
         //https://ftctechnh.github.io/ftc_app/doc/javadoc/com/qualcomm/robotcore/hardware/DcMotorEx.html#getVelocity-org.firstinspires.ftc.robotcore.external.navigation.AngleUnit-
 //https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit?tab=t.0#heading=h.h2mitzlvr4py
-
+//https://github.com/NoahBres/VelocityPIDTuningTutorial/blob/master/README.md
 
 
 
