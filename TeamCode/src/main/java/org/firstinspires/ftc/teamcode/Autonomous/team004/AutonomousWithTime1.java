@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous(name = "(004) Autonomousteamside")
+@Autonomous(name = "(004) Autonomousteamside (time)")
 
 public class AutonomousWithTime1 extends LinearOpMode{
     mainMethods move;
@@ -233,19 +233,23 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
             move.range(10);
             move.arm(armUpPosition);
-            telemetry.addData("Encoder Values", "FL: %d");
+            telemetry.addData(String.valueOf(frontLeft.getTargetPosition()), "Encoder Values, FL: %d");
             wrist.setPower(-0.4);
             sleep(1600);
             wrist.setPower(0);
-            move.arm(-200);
+            move.arm(230);
 
 
 
             grabber( false);
-            move.arm(300);
             wrist.setPower(0.4);
             sleep(1600);
             wrist.setPower(0);
+            move.arm(0);
+            backward(30,0.8);
+            right(50,0.8);
+
+
 
 
 

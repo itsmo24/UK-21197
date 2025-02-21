@@ -19,7 +19,7 @@ public class mainControls004 extends LinearOpMode {
         // Initialize
 
         ElapsedTime runtime = new ElapsedTime();
-        //PIDFCoefficients pidfCoefficients;
+        PIDFCoefficients pidfCoefficients;
         DcMotorEx frontLeft;
         DcMotorEx frontRight;
         DcMotorEx backLeft;
@@ -62,10 +62,10 @@ public class mainControls004 extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
-        //frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
-        //backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
-        //backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
+        frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
+        frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
+        backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
+        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
         //front left max velocity is 2860
         //back left max velocity is 2720
         //front right max velocity is 980
@@ -95,10 +95,10 @@ public class mainControls004 extends LinearOpMode {
             double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
             double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
-            frontLeft.setVelocity(2000*topLeftSpeed);
-            frontRight.setVelocity(2000*topRightSpeed);
-            backLeft.setVelocity(2000*bottomLeftSpeed);
-            backRight.setVelocity(2000*bottomRightSpeed);
+            frontLeft.setVelocity(3000*topLeftSpeed);
+            frontRight.setVelocity(3000*topRightSpeed);
+            backLeft.setVelocity(3000*bottomLeftSpeed);
+            backRight.setVelocity(3000*bottomRightSpeed);
             //backLeft.set
             FL = (backLeft.getVelocity());
             FR = (backLeft.getVelocity());
