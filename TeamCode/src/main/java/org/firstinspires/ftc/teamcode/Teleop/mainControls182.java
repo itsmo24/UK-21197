@@ -60,7 +60,7 @@ public class mainControls182 extends LinearOpMode {
 //            frPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
 //            blPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
 //            brPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
-//
+
 
             drive = gamepad1.left_stick_y;
             turn = gamepad1.right_stick_x;
@@ -71,12 +71,23 @@ public class mainControls182 extends LinearOpMode {
             blPower = drive + turn - strafe;
             brPower = drive - turn + strafe;
 
+            double max = Math.max(Math.abs(flPower), Math.max(Math.abs(flPower), Math.max(Math.abs(flPower), Math.abs(flPower))));
+            if (max > 1){
+                flPower /= max;
+                frPower /= max;
+                blPower /= max;
+                brPower /= max;
+            }
+//            flPower = gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+//            frPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
+//            blPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+//            brPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
             frontLeft.setPower(flPower);
             frontRight.setPower(frPower);
             backLeft.setPower(blPower);
             backRight.setPower(brPower);
 
-
+            
 
             //ARM & WRIST
             rightArm.setPower(gamepad2.left_stick_y);
