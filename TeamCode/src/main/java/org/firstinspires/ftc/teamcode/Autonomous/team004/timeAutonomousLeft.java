@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
-import static android.os.SystemClock.sleep;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,9 +14,9 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-@Autonomous(name = "(004) Autonomousteamside (time)")
+@Autonomous(name = "(004) AutonomousOtherSide")
 
-public class AutonomousWithTime1 extends LinearOpMode{
+public class timeAutonomousLeft extends LinearOpMode{
     mainMethods move;
     IMU imu;
     DcMotor backLeft;
@@ -127,16 +125,14 @@ public class AutonomousWithTime1 extends LinearOpMode{
         frontLeft.setPower(0);
         frontRight.setPower(0);
 
-        }
-    /*public void armUp(double angle, double power ){
+    }
+    public void armUp(double angle, double power ){
 
-        backLeft.setPower(power);
-        backRight.setPower(power);
-        frontLeft.setPower(power);
-        frontRight.setPower(power);
-        sleep((long) (1000 * (angle/)));
+        leftArm.setPower(power);
+        rightArm.setPower(power);
+        sleep((long) (1000 * (angle)));
         stopMotors();
-    }*/
+    }
 
 
     public void grabber(boolean clawCheck){
@@ -232,20 +228,27 @@ public class AutonomousWithTime1 extends LinearOpMode{
 
 
             move.range(10);
-            move.arm(armUpPosition);
+
+            //move.arm(armUpPosition);
+            armUp(50,1);
+
             telemetry.addData(String.valueOf(frontLeft.getTargetPosition()), "Encoder Values, FL: %d");
             wrist.setPower(-0.4);
             sleep(1600);
             wrist.setPower(0);
-            move.arm(230);
 
+            //move.arm(230);
+            armUp(20,-1);
 
 
             grabber( false);
             wrist.setPower(0.4);
             sleep(1600);
             wrist.setPower(0);
-            move.arm(0);
+
+            //move.arm(0);
+            armUp(30,-1);
+
             backward(30,0.8);
             right(50,0.8);
 
