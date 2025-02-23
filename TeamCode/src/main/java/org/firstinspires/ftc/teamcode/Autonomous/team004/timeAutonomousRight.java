@@ -71,8 +71,9 @@ public class timeAutonomousRight extends LinearOpMode{
         frontLeft.setPower(0);
         frontRight.setPower(0);
     }
-    double currentAngle;
+
     public void rotateCCW(int targetOrientationAngle, float power) {
+        double currentAngle;
         currentAngle = 0;
         imu.resetYaw();
         backLeft.setPower(-power);
@@ -87,6 +88,7 @@ public class timeAutonomousRight extends LinearOpMode{
 
     }
     public void rotateCW(int targetOrientationAngle,float power) {
+        double currentAngle;
         currentAngle = 0;
 
         imu.resetYaw();

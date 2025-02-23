@@ -83,11 +83,7 @@ public class timeAutonomousLeft extends LinearOpMode{
             orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        sleep(250);
+        stopMotors();
     }
     public void rotateCW(int targetOrientationAngle,float power) {
         currentAngle = 0;
@@ -101,11 +97,7 @@ public class timeAutonomousLeft extends LinearOpMode{
             orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        sleep(250);
+        stopMotors();
     }
     public void sensor(int targetDistance,double power){
 
@@ -120,10 +112,7 @@ public class timeAutonomousLeft extends LinearOpMode{
             currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         }
 
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
+        stopMotors();
 
     }
     public void armUp(double angle, double power ){
