@@ -14,6 +14,8 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 @Autonomous(name = "(004) Autonomousteamside (time)")
 
 public class timeAutonomousRight extends LinearOpMode{
@@ -102,22 +104,21 @@ public class timeAutonomousRight extends LinearOpMode{
         }
         stopMotors();
     }
-    public void sensor(int targetDistance,double power){
+    public void sensor(int targetDistance,double power) {
 
-        int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));// If the distance in centimeters is less than 10, set the power to 0.3
+        // If the distance in centimeters is less than 10, set the power to 0.3
+        int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
 
-
-        if (targetDistance < currentDistance){
+        while (currentDistance > targetDistance) {
             backLeft.setPower(power);
             backRight.setPower(power);
             frontLeft.setPower(power);
             frontRight.setPower(power);
             currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         }
-
+        // Stop when target distance is reached
         stopMotors();
-
-        }
+    }
     public void armUp(double angle, double power ){
 
         leftArm.setPower(power);
@@ -127,50 +128,17 @@ public class timeAutonomousRight extends LinearOpMode{
     }
 
 
-    public void grabber(boolean clawCheck){
-        if (clawCheck){
-            gripper.setPosition(0.1);
-            sleep(200);
-            gripper.setPosition(0.2);
-            sleep(200);
-            gripper.setPosition(0.3);
-            sleep(200);
-            gripper.setPosition(0.4);
-            sleep(200);
-            gripper.setPosition(0.5);
-            sleep(200);
-            gripper.setPosition(0.6);
-            sleep(200);
-            gripper.setPosition(0.7);
-            sleep(200);
-            gripper.setPosition(0.8);
-            sleep(200);
-            gripper.setPosition(0.9);
-            sleep(200);
-            gripper.setPosition(1);
-            sleep(500);
-        }
-        else{
-            gripper.setPosition(0.9);
-            sleep(200);
-            gripper.setPosition(0.8);
-            sleep(200);
-            gripper.setPosition(0.7);
-            sleep(200);
-            gripper.setPosition(0.6);
-            sleep(200);
-            gripper.setPosition(0.5);
-            sleep(200);
-            gripper.setPosition(0.4);
-            sleep(200);
-            gripper.setPosition(0.3);
-            sleep(200);
-            gripper.setPosition(0.2);
-            sleep(200);
-            gripper.setPosition(0);
-            sleep(1400);
+    public void grabber(boolean clawCheck) {
+        double start = clawCheck ? 0.1 : 0.9; // Start position based on opening or closing
+        double end = clawCheck ? 1.0 : 0.0;   // End position
+        double step = 0.1 * (clawCheck ? 1 : -1); // Increment or decrement
 
+        for (double pos = start; clawCheck ? (pos <= end) : (pos >= end); pos += step) {
+            gripper.setPosition(pos);
+            sleep(200);
         }
+
+        sleep(500); // Final hold delay
     }
 
     @Override
@@ -241,8 +209,8 @@ public class timeAutonomousRight extends LinearOpMode{
             //move.arm(0);
             armUp(30,-1);
 
-            backward(30,0.8);
-            right(50,0.8);
+            backward(30,1);
+            right(50,1);
 
 
 

@@ -77,7 +77,19 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         // Start autonomous movement
         if (opModeIsActive()) {
-            forward(12, 500);  // Move forward 12 inches at 500 ticks/sec
+            sensor(5,1);
+            armUp(50,1);
+            wrist.setPower(-0.4);
+            sleep(1600);
+            wrist.setPower(0);
+            armUp(20,-1);
+            grabber( false);
+            wrist.setPower(0.4);
+            sleep(1600);
+            wrist.setPower(0);
+            backward(30,3000);
+            sideways(50,3000);
+
         }
     }
 
@@ -117,34 +129,111 @@ public class encoderAutonomousRight extends LinearOpMode {
     }
     public void sensor(int targetDistance,double velocity){
 
-        int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));// If the distance in centimeters is less than 10, set the power to 0.3
+        // If the distance in centimeters is less than 10, set the power to 0.3
+        int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
+
+            while (currentDistance > targetDistance) {
+                backLeft.setVelocity(velocity);
+                backRight.setVelocity(velocity);
+                frontLeft.setVelocity(velocity);
+                frontRight.setVelocity(velocity);
+                currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
+            }
+                // Stop when target distance is reached
+                stopMotors();
 
 
-        if (targetDistance < currentDistance){
-            backLeft.setVelocity(velocity);
-            backRight.setVelocity(velocity);
-            frontLeft.setVelocity(velocity);
-            frontRight.setVelocity(velocity);
-        }
 
-        stopMotors();
+        telemetry.addData("Current Distance", currentDistance);
+        telemetry.update();
+
 
     }
-    public void rotateCCW(int targetOrientationAngle, float power) {
-        double currentAngle;
-        currentAngle = 0;
+    public void armUp(double angle, double power ){
+
+        leftArm.setPower(power);
+        rightArm.setPower(power);
+        sleep((long) (100 * (angle)));
+        stopMotors();
+    }
+    public void grabber(boolean clawCheck) {
+        double start = clawCheck ? 0.1 : 0.9;
+        double end = clawCheck ? 1.0 : 0.0;
+        double step = 0.1 * (clawCheck ? 1 : -1);
+
+        for (double pos = start; clawCheck ? (pos <= end) : (pos >= end); pos += step) {
+            gripper.setPosition(pos);
+            sleep(200);
+        }
+
+        sleep(500);
+    }
+        public void rotateCCW(int targetOrientationAngle, float velocity) {
+            double currentAngle = 0;
+            imu.resetYaw();
+
+            backLeft.setPower(-velocity);
+            backRight.setPower(velocity);
+            frontLeft.setPower(-velocity);
+            frontRight.setPower(velocity);
+
+            while ( currentAngle < targetOrientationAngle) {
+                orientation = imu.getRobotYawPitchRollAngles();
+                currentAngle = orientation.getYaw(AngleUnit.DEGREES);
+            }
+
+            stopMotors();
+        }
+    public void rotateCW(int targetOrientationAngle, float velocity) {
+        double currentAngle = 0;
         imu.resetYaw();
-        backLeft.setPower(-power);
-        backRight.setPower(power);
-        frontLeft.setPower(-power);
-        frontRight.setPower(power);
-        while (currentAngle < targetOrientationAngle) {
+
+        backLeft.setPower(velocity);
+        backRight.setPower(-velocity);
+        frontLeft.setPower(velocity);
+        frontRight.setPower(-velocity);
+
+        while ( currentAngle < targetOrientationAngle) {
             orientation = imu.getRobotYawPitchRollAngles();
             currentAngle = orientation.getYaw(AngleUnit.DEGREES);
         }
+
         stopMotors();
+    }
+    public void sideways(double distance, double velocity) {
+        double targetPosition = (distance / circumference) * 1120;
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
+        if (velocity > 0) {
+
+            frontLeft.setPower(velocity);
+            frontRight.setPower(-velocity);
+            backLeft.setPower(-velocity);
+            backRight.setPower(velocity);
+        } else {
+
+            frontLeft.setPower(-velocity);
+            frontRight.setPower(velocity);
+            backLeft.setPower(velocity);
+            backRight.setPower(-velocity);
+        }
+
+        while (Math.abs(frontLeft.getCurrentPosition()) < targetPosition && opModeIsActive()) {
+            telemetry.addData("Target Position", targetPosition);
+            telemetry.addData("Current Position", frontLeft.getCurrentPosition());
+            telemetry.update();
+        }
+
+
+        stopMotors();
     }
 
 
