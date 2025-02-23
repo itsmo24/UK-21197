@@ -19,14 +19,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@Autonomous(name = "encoderAutonomousRight")
-public class encoderAutonomousRight extends LinearOpMode {
+@Autonomous(name = "encoderAutonomousLeft")
+public class encoderAutonomousLeft extends LinearOpMode {
 
     // Declare Motors and Servos
     IMU imu;
     YawPitchRollAngles orientation;
     DistanceSensor rangeSensor;
-    //TouchSensor touchSensor;
+    TouchSensor touchSensor;
 
     private DcMotorEx frontLeft, frontRight, backLeft, backRight;
     private CRServo leftArm, rightArm, wrist;
@@ -47,7 +47,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
-        //touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
+        touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
 
         // Set motor directions
@@ -91,21 +91,20 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(1600);
             wrist.setPower(0);
             backward(30, 3000);
-            sideways(50, 3000);
-
+            sideways(70, 3000);
 
 
             telemetry.update();
 
         }
-        /*while (opModeIsActive()) {
+        while (opModeIsActive()) {
             if (touchSensor.isPressed()) {
                 stopMotors();
                 telemetry.addData("Touch Sensor", "Is Pressed");
             } else {
                 telemetry.addData("Touch Sensor", "Is Not Pressed");
             }
-        }*/
+        }
     }
 
     public void stopMotors() {
@@ -212,6 +211,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         }
         stopMotors();
     }
+
     public void rotateCW(int targetOrientationAngle, float velocity) {
         double currentAngle = 0;
         resetEncoders();
@@ -237,6 +237,7 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         stopMotors();
     }
+
     public void sideways(double distance, double velocity) {
         double targetPosition = (distance / circumference) * 1120;
         resetEncoders();

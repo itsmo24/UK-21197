@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "(004) Autonomous with encoders")
+
 public class Autonomous1 extends LinearOpMode {
 
      IMU imu;

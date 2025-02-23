@@ -14,9 +14,10 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "(004) AutonomousOtherSide")
+@Autonomous(name = "timeAutonomousLeft")
 
 public class timeAutonomousLeft extends LinearOpMode{
     mainMethods move;
@@ -31,6 +32,8 @@ public class timeAutonomousLeft extends LinearOpMode{
     CRServo wrist;
     Servo gripper;
     DistanceSensor rangeSensor;
+    //TouchSensor touchSensor;
+
 
     double inches = 24;
     public void forward(double distance, double power ){
@@ -153,6 +156,7 @@ public class timeAutonomousLeft extends LinearOpMode{
         wrist = hardwareMap.get(CRServo.class, "wrist");
         gripper = hardwareMap.get(Servo.class, "gripper");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
+        //touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
 
 
@@ -177,6 +181,14 @@ public class timeAutonomousLeft extends LinearOpMode{
 
         waitForStart();
 
+        /*while (opModeIsActive()) {
+            if (touchSensor.isPressed()) {
+                stopMotors();
+                telemetry.addData("Touch Sensor", "Is Pressed");
+            } else {
+                telemetry.addData("Touch Sensor", "Is Not Pressed");
+            }
+        }*/
 
 
 
