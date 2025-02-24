@@ -18,12 +18,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 @Autonomous(name = "encoderAutonomousRight")
 public class encoderAutonomousRight extends LinearOpMode {
 
     // Declare Motors and Servos
     IMU imu;
+    mainMethods move;
     YawPitchRollAngles orientation;
     DistanceSensor rangeSensor;
     //TouchSensor touchSensor;
@@ -80,12 +82,12 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         // Start autonomous movement
         if (opModeIsActive()) {
-            sensor(5, 1);
-            armUp(50, 1);
+            sensor(20, 3000);
+            armUp(5, 1);
             wrist.setPower(-0.4);
             sleep(1600);
             wrist.setPower(0);
-            armUp(20, -1);
+            armUp(2, -1);
             grabber(false);
             wrist.setPower(0.4);
             sleep(1600);
@@ -179,7 +181,7 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         leftArm.setPower(power);
         rightArm.setPower(power);
-        sleep((long) (100 * (angle)));
+        sleep((long) (10*(angle)));
         stopMotors();
     }
 

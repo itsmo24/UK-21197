@@ -53,7 +53,7 @@ public class specimen extends LinearOpMode {
         waitForStart();
         move.movement(500, 0.5);
         move.sideways(1000, -0.8);
-        move.turn(0);
+        //move.turn(0);
         move.range(20);
         move.turn(90);
         //move.arm(armUpPosition);
