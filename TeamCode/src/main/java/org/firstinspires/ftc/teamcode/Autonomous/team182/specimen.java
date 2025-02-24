@@ -58,7 +58,7 @@ public class specimen extends LinearOpMode {
 //        move.turn(0, 0.3);
 //        move.arm(armUpPosition, 1);
 //        move.range(15);
-        move.turn(90);
+        move.turn(90, 0.5);
 //        move.wristDown();
 //        move.arm(armUpPosition/2, 1);
 //        move.gripperOpen();

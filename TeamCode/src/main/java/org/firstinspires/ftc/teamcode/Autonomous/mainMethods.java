@@ -183,24 +183,19 @@ public class mainMethods {
 //        sleep(pauseTimer);
 //    }
 
-    public void turn(int targetAngle){
-        double power;
+    public void turn(int targetAngle, double pPower){
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
-        while (currentAngle != targetAngle){
-            // Checking to see if needed to turn right or left
-            if (currentAngle > targetAngle){
-                power = -decimal(currentAngle, Math.abs(Math.abs(currentAngle) - Math.abs(targetAngle)));
-            } else {
-                power = decimal(currentAngle, Math.abs(Math.abs(currentAngle) - Math.abs(targetAngle)));;
-            }
-
-            // Turning right if power is positive
+        double power = (currentAngle < targetAngle) ? pPower : -pPower;
+        while (Math.abs(currentAngle-targetAngle) > 2){
             backLeft.setPower(power);
             backRight.setPower(-power);
             frontLeft.setPower(power);
             frontRight.setPower(-power);
             currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
+            telemetry.addData("Current Angle", currentAngle);
+            telemetry.addData("Target Angle", targetAngle);
+            telemetry.update();
         }
         sleep(pauseTimer);
     }
