@@ -62,12 +62,13 @@ public class mainControls004 extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
+        /*frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
         frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
         backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
-        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);
+        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);*/
         //front left max velocity is 2860
         //back left max velocity is 2720
+
         //front right max velocity is 980
         //back right max velocity is 2900
         //32767/FLMax

@@ -124,7 +124,8 @@ public class timeAutonomousLeft extends LinearOpMode{
         leftArm.setPower(power);
         rightArm.setPower(power);
         sleep((long) (100 * (angle)));
-        stopMotors();
+        leftArm.setPower(0);
+        rightArm.setPower(0);
     }
 
 

@@ -68,12 +68,17 @@ public class encoderAutonomousRight extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        gripper.setPosition(1);
 
         // Set PIDF Values
-        frontLeft.setVelocityPIDFCoefficients(1.15, 0.115, 0, 11.5);
+        /*frontLeft.setVelocityPIDFCoefficients(1.15, 0.115, 0, 11.5);
         frontRight.setVelocityPIDFCoefficients(3.45, 0.345, 0, 34.5);
         backLeft.setVelocityPIDFCoefficients(1.2, 0.12, 0, 12);
-        backRight.setVelocityPIDFCoefficients(1.13, 0.113, 0, 11.3);
+        backRight.setVelocityPIDFCoefficients(1.13, 0.113, 0, 11.3);*/
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -82,18 +87,40 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         // Start autonomous movement
         if (opModeIsActive()) {
-            sensor(20, 3000);
-            armUp(5, 1);
-            wrist.setPower(-0.4);
-            sleep(1600);
+            /*sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
             wrist.setPower(0);
-            armUp(2, -1);
+            sleep(1300);
+            armUp(9, -0.5);
             grabber(false);
-            wrist.setPower(0.4);
-            sleep(1600);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
             wrist.setPower(0);
-            backward(30, 3000);
-            sideways(50, 3000);
+            backward(27, 3000);
+            sideways(50, 3000);*/
+            sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
+            wrist.setPower(0);
+            sleep(1300);
+            armUp(9, -0.5);
+            grabber(false);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
+            wrist.setPower(0);
+            backward(20, 3000);
+            wrist.setPower(1);
+            sleep(1500);
+            rotateCW(180,3000);
+            grabber(false);
+
 
 
 
@@ -181,8 +208,10 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         leftArm.setPower(power);
         rightArm.setPower(power);
-        sleep((long) (10*(angle)));
-        stopMotors();
+        sleep((long) (100*(angle)));
+        leftArm.setPower(0);
+        rightArm.setPower(0);
+
     }
 
     public void grabber(boolean clawCheck) {

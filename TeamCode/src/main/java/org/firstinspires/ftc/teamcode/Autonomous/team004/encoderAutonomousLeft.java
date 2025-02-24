@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
@@ -18,15 +19,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@Autonomous(name = "encoderAutonomousLeft")
+@Autonomous(name = "encoderAutonomousRight")
 public class encoderAutonomousLeft extends LinearOpMode {
 
     // Declare Motors and Servos
     IMU imu;
+    mainMethods move;
     YawPitchRollAngles orientation;
     DistanceSensor rangeSensor;
-    TouchSensor touchSensor;
+    //TouchSensor touchSensor;
 
     private DcMotorEx frontLeft, frontRight, backLeft, backRight;
     private CRServo leftArm, rightArm, wrist;
@@ -47,7 +50,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
-        touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
+        //touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
 
         // Set motor directions
@@ -66,12 +69,17 @@ public class encoderAutonomousLeft extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        gripper.setPosition(1);
 
         // Set PIDF Values
-        frontLeft.setVelocityPIDFCoefficients(1.15, 0.115, 0, 11.5);
+        /*frontLeft.setVelocityPIDFCoefficients(1.15, 0.115, 0, 11.5);
         frontRight.setVelocityPIDFCoefficients(3.45, 0.345, 0, 34.5);
         backLeft.setVelocityPIDFCoefficients(1.2, 0.12, 0, 12);
-        backRight.setVelocityPIDFCoefficients(1.13, 0.113, 0, 11.3);
+        backRight.setVelocityPIDFCoefficients(1.13, 0.113, 0, 11.3);*/
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -80,31 +88,54 @@ public class encoderAutonomousLeft extends LinearOpMode {
 
         // Start autonomous movement
         if (opModeIsActive()) {
-            sensor(5, 1);
-            armUp(50, 1);
-            wrist.setPower(-0.4);
-            sleep(1600);
+            /*sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
             wrist.setPower(0);
-            armUp(20, -1);
+            sleep(1300);
+            armUp(9, -0.5);
             grabber(false);
-            wrist.setPower(0.4);
-            sleep(1600);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
             wrist.setPower(0);
-            backward(30, 3000);
-            sideways(70, 3000);
+            backward(27, 3000);
+            sideways(50, 3000);*/
+            sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
+            wrist.setPower(0);
+            sleep(1300);
+            armUp(9, -0.5);
+            grabber(false);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
+            wrist.setPower(0);
+            backward(20, 3000);
+            wrist.setPower(1);
+            sleep(1500);
+            rotateCW(180,3000);
+            grabber(false);
+
+
 
 
             telemetry.update();
 
         }
-        while (opModeIsActive()) {
+        /*while (opModeIsActive()) {
             if (touchSensor.isPressed()) {
                 stopMotors();
                 telemetry.addData("Touch Sensor", "Is Pressed");
             } else {
                 telemetry.addData("Touch Sensor", "Is Not Pressed");
             }
-        }
+        }*/
     }
 
     public void stopMotors() {
@@ -178,8 +209,10 @@ public class encoderAutonomousLeft extends LinearOpMode {
 
         leftArm.setPower(power);
         rightArm.setPower(power);
-        sleep((long) (100 * (angle)));
-        stopMotors();
+        sleep((long) (100*(angle)));
+        leftArm.setPower(0);
+        rightArm.setPower(0);
+
     }
 
     public void grabber(boolean clawCheck) {
@@ -211,7 +244,6 @@ public class encoderAutonomousLeft extends LinearOpMode {
         }
         stopMotors();
     }
-
     public void rotateCW(int targetOrientationAngle, float velocity) {
         double currentAngle = 0;
         resetEncoders();
@@ -237,7 +269,6 @@ public class encoderAutonomousLeft extends LinearOpMode {
 
         stopMotors();
     }
-
     public void sideways(double distance, double velocity) {
         double targetPosition = (distance / circumference) * 1120;
         resetEncoders();

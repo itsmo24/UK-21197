@@ -125,8 +125,9 @@ public class timeAutonomousRight extends LinearOpMode{
 
         leftArm.setPower(power);
         rightArm.setPower(power);
-        sleep((long) (1000 * (angle)));
-        stopMotors();
+        sleep((long) (100 * (angle)));
+        leftArm.setPower(0);
+        rightArm.setPower(0);
     }
 
 
@@ -197,28 +198,22 @@ public class timeAutonomousRight extends LinearOpMode{
 
 
 
-            move.range(10);
+            sensor(5,1);
 
             //move.arm(armUpPosition);
-            armUp(50,1);
-
-            telemetry.addData(String.valueOf(frontLeft.getTargetPosition()), "Encoder Values, FL: %d");
-            wrist.setPower(-0.4);
-            sleep(1600);
+            sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
             wrist.setPower(0);
-
-            //move.arm(230);
-            armUp(20,-1);
-
-
-            grabber( false);
-            wrist.setPower(0.4);
-            sleep(1600);
+            sleep(1300);
+            armUp(9, -0.5);
+            grabber(false);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
             wrist.setPower(0);
-
-            //move.arm(0);
-            armUp(30,-1);
-
             backward(30,1);
             right(50,1);
 
