@@ -197,7 +197,7 @@ public class timeAutonomousLeft extends LinearOpMode{
 
 
 
-            move.range(10);
+            //move.range(10);
 
             //move.arm(armUpPosition);
             armUp(50,1);

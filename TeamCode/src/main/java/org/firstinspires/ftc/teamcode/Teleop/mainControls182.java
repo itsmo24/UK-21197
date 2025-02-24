@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import static com.google.blocks.ftcrobotcontroller.hardware.HardwareType.BNO055IMU;
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -62,12 +59,6 @@ public class mainControls182 extends LinearOpMode {
         // Start
         while (opModeIsActive()) {
             // Movement
-//            flPower = gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-//            frPower = gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-//            blPower = gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-//            brPower = gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
-
-
             drive = gamepad1.left_stick_y;
             turn = gamepad1.right_stick_x;
             strafe = gamepad1.left_stick_x;

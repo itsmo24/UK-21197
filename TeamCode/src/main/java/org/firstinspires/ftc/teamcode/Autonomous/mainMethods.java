@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static android.os.SystemClock.sleep;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -27,13 +25,11 @@ public class mainMethods {
     Servo gripper;
     DistanceSensor rangeSensor;
 
-
-    int countsPerRevolution = 288;
-    int armUpTime = 1600;
-    int armDownTime = 1600;
+    int armUpTime = 1500;
+    int armDownTime = 1350;
     int wristUpTime = 1400;
     int wristDownTime = 1400;
-    
+
     int pauseTimer = 100;
 
     double gripperClosedPosition = 1.0;
@@ -55,64 +51,63 @@ public class mainMethods {
     // GRIPPER
     public void gripperClose() {
         gripper.setPosition(gripperClosedPosition);
-        sleep(pauseTimer);
+
     }
+
     public void gripperOpen() {
         gripper.setPosition(gripperOpenPosition);
-        sleep(pauseTimer);
+
     }
 
     // ARM AND WRIST
-    public void armUpT(){
+    public void armUpT() {
         rightArm.setPower(-0.8);
         leftArm.setPower(-0.8);
         sleep(armUpTime);
         rightArm.setPower(0);
         leftArm.setPower(0);
-        sleep(pauseTimer);
+
     }
-    public void armDownT(){
+
+    public void armDownT() {
         rightArm.setPower(0.8);
         leftArm.setPower(0.8);
         sleep(armDownTime);
         rightArm.setPower(0);
         leftArm.setPower(0);
-        sleep(pauseTimer);
+
     }
+
     public void wristDown() {
         wrist.setPower(0.4);
         sleep(wristDownTime);
         wrist.setPower(0);
-        sleep(pauseTimer);
+
     }
+
     public void wristUp() {
         wrist.setPower(-0.5);
         sleep(wristUpTime);
         wrist.setPower(0);
-        sleep(pauseTimer);
+
     }
 
 
-    public void arm(int targetPosition, double pPower){
-        double power;
+    public void arm(int targetPosition, double pPower) {
+
         int currentPosition = rightArm.getCurrentPosition();
-        while (targetPosition != currentPosition){
-            if (targetPosition > currentPosition){
-                power = -pPower;
-            } else{
-                power = pPower;
-            }
+        double power = (currentPosition > targetPosition) ? pPower : -pPower;
+        while (Math.abs(currentPosition - targetPosition) > 3) {
             rightArm.setPower(power);
             leftArm.setPower(power);
             currentPosition = rightArm.getCurrentPosition();
         }
-        leftArm.setPower(0);
         rightArm.setPower(0);
-
+        leftArm.setPower(0);
     }
 
     // MOVEMENT
-    public void movement(int time, double power){
+    public void movement(int time, double power) {
         backLeft.setPower(power);
         backRight.setPower(power);
         frontLeft.setPower(power);
@@ -123,9 +118,9 @@ public class mainMethods {
         frontLeft.setPower(0);
         frontRight.setPower(0);
     }
-    
+
     // SIDEWAYS
-    public void sideways(int time, double power){
+    public void sideways(int time, double power) {
         // Right positive power
         backLeft.setPower(-power);
         backRight.setPower(power);
@@ -139,25 +134,24 @@ public class mainMethods {
     }
 
 
-
     // Function that finds difference of two inputs divides by the addition of them
 
-    public double decimal(double num1, double num2){
-        double power;
-        num1 = Math.abs(num1);
-        if (num2 == 0){
-            return 0;
-        }
-        power =  (num1 / num2);
-        if (power < 0.2 & power > 0) {
-            power = 0.2;
-        } else if (power > 0.2) {
-            power = 1;
-        } else {
-            power = 0;
-        }
-        return power;
-    }
+//    public double decimal(double num1, double num2){
+//        double power;
+//        num1 = Math.abs(num1);
+//        if (num2 == 0){
+//            return 0;
+//        }
+//        power =  (num1 / num2);
+//        if (power < 0.2 & power > 0) {
+//            power = 0.2;
+//        } else if (power > 0.2) {
+//            power = 1;
+//        } else {
+//            power = 0;
+//        }
+//        return power;
+//    }
 
 //    public void turn(int targetAngle){
 //        double power;
@@ -180,45 +174,40 @@ public class mainMethods {
 //            frontRight.setPower(-power);
 //            currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
 //        }
-//        sleep(pauseTimer);
+//        
 //    }
 
-    public void turn(int targetAngle, double pPower){
+    public void turn(int targetAngle, double pPower) {
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
         double power = (currentAngle < targetAngle) ? pPower : -pPower;
-        while (Math.abs(currentAngle-targetAngle) > 2){
+        while (Math.abs(currentAngle - targetAngle) > 2) {
             backLeft.setPower(power);
             backRight.setPower(-power);
             frontLeft.setPower(power);
             frontRight.setPower(-power);
             currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
-            telemetry.addData("Current Angle", currentAngle);
-            telemetry.addData("Target Angle", targetAngle);
-            telemetry.update();
         }
-        sleep(pauseTimer);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
     }
 
-    public void range(int targetDistance){
-        double power;
+    public void range(int targetDistance, double pPower) {
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
-        double distanceToTravel = Math.abs(currentDistance-targetDistance);
+        double power = (currentDistance > targetDistance) ? pPower : -pPower;
 
-        while (targetDistance != currentDistance){
-            double distanceToGo = Math.abs(currentDistance-targetDistance);
-            if (targetDistance > currentDistance){
-                power = -decimal(distanceToGo, distanceToTravel);
-            } else {
-                power = decimal(distanceToGo, distanceToTravel);
-            }
+        while (Math.abs(currentDistance - targetDistance) > 1) {
             backLeft.setPower(power);
             backRight.setPower(power);
             frontLeft.setPower(power);
             frontRight.setPower(power);
             currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         }
-        sleep(pauseTimer);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
     }
-
 }

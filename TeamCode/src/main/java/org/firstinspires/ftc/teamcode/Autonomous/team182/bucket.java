@@ -29,6 +29,8 @@ public class bucket extends LinearOpMode {
         leftArm = hardwareMap.get(DcMotor.class, "rightArm");
         imu = hardwareMap.get(IMU.class, "imu");
 
+        int armUpPosition = 350;
+
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -43,6 +45,8 @@ public class bucket extends LinearOpMode {
         rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         imu.resetYaw();
+
+        move.gripperClose();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
