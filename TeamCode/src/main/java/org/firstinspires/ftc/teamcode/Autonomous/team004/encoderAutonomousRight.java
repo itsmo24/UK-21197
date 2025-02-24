@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous.team004;
 
+import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,9 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -92,6 +92,9 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         // Start autonomous movement
         if (opModeIsActive()) {
+
+
+
             /*sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
@@ -107,7 +110,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(0);
             backward(27, 3000);
             sideways(50, 3000);*/
-            sensor(20, 3000);
+            /*sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
             wrist.setPower(1);
@@ -122,11 +125,11 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(0);
             backward(20, 3000);
             wrist.setPower(1);
-            sleep(1500);
+            sleep(1200);
             rotateCW(180,3000);
             grabber(true);
             wrist.setPower(-1);
-            sleep(1500);
+            sleep(1200);
             rotateCW(180,3000);
             sensor(20, 3000);
             armUp(15, 0.5);
@@ -142,7 +145,8 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(1300);
             wrist.setPower(0);
             backward(27, 3000);
-            sideways(50, 3000);
+            sideways(50, 3000);*/
+            rotateCW(180,3000);
 
 
 
@@ -255,7 +259,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         sleep(500);
     }
 
-    public void rotateCCW(int targetOrientationAngle, float velocity) {
+    public void rotateCCW(double targetOrientationAngle, float velocity) {
         double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
         resetEncoders();
@@ -273,7 +277,7 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         stopMotors();
     }
-    public void rotateCW(int targetOrientationAngle, float velocity) {
+    public void rotateCW(double targetOrientationAngle, float velocity) {
         double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
         resetEncoders();
@@ -291,6 +295,29 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         stopMotors();
     }
+
+    public void turn(int targetAngle, double pPower){
+        double power;
+        int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        // Looping until target angle is reached
+        int angleToTurn = Math.abs(currentAngle-targetAngle);
+        while (currentAngle != targetAngle){
+            // Checking to see if needed to turn right or left
+            if (currentAngle > targetAngle){
+                power = -pPower;
+            } else {
+                power = pPower;
+            }
+
+            // Turning right if power is positive
+            backLeft.setPower(power);
+            backRight.setPower(-power);
+            frontLeft.setPower(power);
+            frontRight.setPower(-power);
+            currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        }
+    }
+
     public void sideways(double distance, double velocity) {
         double targetPosition = (distance / circumference) * 1120;
         resetEncoders();
@@ -313,6 +340,8 @@ public class encoderAutonomousRight extends LinearOpMode {
             telemetry.addData("Current Position", frontLeft.getCurrentPosition());
             telemetry.update();
         }
+
+
 
 
         stopMotors();
