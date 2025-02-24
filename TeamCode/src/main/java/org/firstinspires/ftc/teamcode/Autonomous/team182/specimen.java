@@ -47,16 +47,25 @@ public class specimen extends LinearOpMode {
 
         imu.resetYaw();
 
+        move.gripperClose();
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
-        move.movement(500, 0.5);
-        move.sideways(1000, -0.8);
-        //move.turn(0);
-        move.range(20);
+//        move.movement(500, 0.5);
+//        move.sideways(1000, -0.8);
+//        move.turn(0, 0.3);
+//        move.arm(armUpPosition, 1);
+//        move.range(15);
         move.turn(90);
-        //move.arm(armUpPosition);
-        move.movement(3000, -0.3);
+//        move.wristDown();
+//        move.arm(armUpPosition/2, 1);
+//        move.gripperOpen();
+//        move.arm(0, 0.5);
+//        move.wristUp();
+
+//        move.movement(3000, -0.3);
+//        move.sideways(500, 1);
     }
 }
