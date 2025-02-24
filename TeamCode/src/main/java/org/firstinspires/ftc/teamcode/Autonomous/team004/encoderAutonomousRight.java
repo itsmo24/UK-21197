@@ -14,10 +14,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 @Autonomous(name = "encoderAutonomousRight")
@@ -49,6 +48,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
         rangeSensor = hardwareMap.get(DistanceSensor.class, "rangeSensor");
+        imu = hardwareMap.get(IMU.class, "imu");
         //touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
 
@@ -73,6 +73,11 @@ public class encoderAutonomousRight extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         gripper.setPosition(1);
+
+
+
+        telemetry.addData("IMU", "Initialized");
+        telemetry.update();
 
         // Set PIDF Values
         /*frontLeft.setVelocityPIDFCoefficients(1.15, 0.115, 0, 11.5);
@@ -119,7 +124,25 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(1);
             sleep(1500);
             rotateCW(180,3000);
+            grabber(true);
+            wrist.setPower(-1);
+            sleep(1500);
+            rotateCW(180,3000);
+            sensor(20, 3000);
+            armUp(15, 0.5);
+            sleep(300);
+            wrist.setPower(1);
+            sleep(1300);
+            wrist.setPower(0);
+            sleep(1300);
+            armUp(9, -0.5);
             grabber(false);
+            armUp(5, -0.5);
+            wrist.setPower(-1);
+            sleep(1300);
+            wrist.setPower(0);
+            backward(27, 3000);
+            sideways(50, 3000);
 
 
 
@@ -135,6 +158,11 @@ public class encoderAutonomousRight extends LinearOpMode {
                 telemetry.addData("Touch Sensor", "Is Not Pressed");
             }
         }*/
+        while (opModeIsActive()) {
+            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+            telemetry.addData("Yaw", orientation.getYaw(AngleUnit.RADIANS));
+            telemetry.update();
+        }
     }
 
     public void stopMotors() {
@@ -228,42 +256,37 @@ public class encoderAutonomousRight extends LinearOpMode {
     }
 
     public void rotateCCW(int targetOrientationAngle, float velocity) {
+        double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
-        imu.resetYaw();
         resetEncoders();
+        imu.resetYaw();
 
         backLeft.setPower(-velocity);
         backRight.setPower(velocity);
         frontLeft.setPower(-velocity);
         frontRight.setPower(velocity);
 
-        while (currentAngle < targetOrientationAngle) {
+        while (currentAngle < targetOrientationAngleRad) {
             orientation = imu.getRobotYawPitchRollAngles();
-            currentAngle = orientation.getYaw(AngleUnit.DEGREES);
+            currentAngle = orientation.getYaw(AngleUnit.RADIANS);
         }
+
         stopMotors();
     }
     public void rotateCW(int targetOrientationAngle, float velocity) {
+        double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
         resetEncoders();
         imu.resetYaw();
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         backLeft.setPower(velocity);
         backRight.setPower(-velocity);
         frontLeft.setPower(velocity);
         frontRight.setPower(-velocity);
 
-        while (currentAngle < targetOrientationAngle) {
+        while (currentAngle < targetOrientationAngleRad) {
             orientation = imu.getRobotYawPitchRollAngles();
-            currentAngle = orientation.getYaw(AngleUnit.DEGREES);
+            currentAngle = orientation.getYaw(AngleUnit.RADIANS);
         }
 
         stopMotors();
