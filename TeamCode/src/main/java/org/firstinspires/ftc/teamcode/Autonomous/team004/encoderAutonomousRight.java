@@ -73,6 +73,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         gripper.setPosition(1);
+        imu.resetYaw();
 
 
 
@@ -110,7 +111,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(0);
             backward(27, 3000);
             sideways(50, 3000);*/
-            /*sensor(20, 3000);
+            sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
             wrist.setPower(1);
@@ -123,14 +124,22 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(-1);
             sleep(1300);
             wrist.setPower(0);
-            backward(20, 3000);
+            backward(15, 3000);
+            sideways(40,3000);
+            turn(180,1);
+            sleep(1300);
+
             wrist.setPower(1);
-            sleep(1200);
-            rotateCW(180,3000);
+            sleep(600);
             grabber(true);
+            sleep(1300);
+
             wrist.setPower(-1);
-            sleep(1200);
-            rotateCW(180,3000);
+            sleep(600);
+            sleep(1300);
+            turn(0,1);
+            sideways(-40,3000);
+            sleep(1300);
             sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
@@ -145,8 +154,8 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(1300);
             wrist.setPower(0);
             backward(27, 3000);
-            sideways(50, 3000);*/
-            rotateCW(180,3000);
+            sideways(50, 3000);
+            //turn(180,1);
 
 
 
@@ -259,11 +268,10 @@ public class encoderAutonomousRight extends LinearOpMode {
         sleep(500);
     }
 
-    public void rotateCCW(double targetOrientationAngle, float velocity) {
+    /*public void rotateCCW(double targetOrientationAngle, float velocity) {
         double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
         resetEncoders();
-        imu.resetYaw();
 
         backLeft.setPower(-velocity);
         backRight.setPower(velocity);
@@ -294,29 +302,30 @@ public class encoderAutonomousRight extends LinearOpMode {
         }
 
         stopMotors();
-    }
+    }*/
 
-    public void turn(int targetAngle, double pPower){
-        double power;
+    public void turn(int targetAngle, double pPower) {
+         // Reset yaw at the start of the turn
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-        // Looping until target angle is reached
-        int angleToTurn = Math.abs(currentAngle-targetAngle);
-        while (currentAngle != targetAngle){
-            // Checking to see if needed to turn right or left
-            if (currentAngle > targetAngle){
-                power = -pPower;
-            } else {
-                power = pPower;
-            }
 
-            // Turning right if power is positive
-            backLeft.setPower(power);
-            backRight.setPower(-power);
+        // Determine direction
+        double power = (currentAngle < targetAngle) ? pPower : -pPower;
+
+        while (Math.abs(currentAngle - targetAngle) > 2 && opModeIsActive()) { // Allow small error margin
             frontLeft.setPower(power);
             frontRight.setPower(-power);
+            backLeft.setPower(power);
+            backRight.setPower(-power);
+
             currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            telemetry.addData("Current Angle", currentAngle);
+            telemetry.addData("Target Angle", targetAngle);
+            telemetry.update();
         }
+
+        stopMotors(); // Stop motors after reaching the angle
     }
+
 
     public void sideways(double distance, double velocity) {
         double targetPosition = (distance / circumference) * 1120;
