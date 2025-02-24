@@ -1,19 +1,23 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
+import static com.google.blocks.ftcrobotcontroller.hardware.HardwareType.BNO055IMU;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
 @TeleOp(name = "(182) Main Controls")
 public class mainControls182 extends LinearOpMode {
     @Override
     public void runOpMode(){
         // Initialize
+        IMU imu;
         ElapsedTime runtime = new ElapsedTime();
         DcMotor frontLeft;
         DcMotor frontRight;
@@ -38,6 +42,7 @@ public class mainControls182 extends LinearOpMode {
         rightArm= hardwareMap.get(DcMotor.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         wrist = hardwareMap.get(CRServo.class, "wrist");
+        imu = hardwareMap.get(IMU.class, "imu");
 
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -49,8 +54,9 @@ public class mainControls182 extends LinearOpMode {
 
         //frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
+        imu.resetYaw();
         telemetry.addData("Status", "Initialized");
+
 
         waitForStart();
         // Start
@@ -66,10 +72,10 @@ public class mainControls182 extends LinearOpMode {
             turn = gamepad1.right_stick_x;
             strafe = gamepad1.left_stick_x;
 
-            flPower = drive + turn + strafe;
-            frPower = drive - turn - strafe;
-            blPower = drive + turn - strafe;
-            brPower = drive - turn + strafe;
+            flPower = drive - turn - strafe;
+            frPower = drive + turn + strafe;
+            blPower = drive - turn + strafe;
+            brPower = drive + turn - strafe;
 
             double max = Math.max(Math.abs(flPower), Math.max(Math.abs(flPower), Math.max(Math.abs(flPower), Math.abs(flPower))));
             if (max > 1){
@@ -110,6 +116,7 @@ public class mainControls182 extends LinearOpMode {
             }
 
 
+            telemetry.addData("Angle", imu.getRobotYawPitchRollAngles().getYaw(com.qualcomm.hardware.bosch.BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
             telemetry.addData("Position", frontLeft.getCurrentPosition());
             telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.update();
