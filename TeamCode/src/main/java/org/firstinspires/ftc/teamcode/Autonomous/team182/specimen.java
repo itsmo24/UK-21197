@@ -31,6 +31,8 @@ public class specimen extends LinearOpMode {
         imu = hardwareMap.get(IMU.class, "imu");
 
         int armUpPosition = 430;
+        int wristUpTime = 1250;
+        int wristDownTime = 1200;
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -53,20 +55,38 @@ public class specimen extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
-        move.movement(500, 0.5);
-        move.sideways(1000, -0.8);
+        // Go and hang specimen
+        move.movement(500, 1);
+        move.sideways(500, -1);
         move.turn(0, 0.3);
         move.arm(armUpPosition, 1);
         move.range(20, 0.5);
-        move.turn(90, 0.5);
-        move.wristDown();
+        move.wristDown(wristDownTime);
         move.arm(armUpPosition/2, 1);
         move.gripperOpen();
-        move.arm(0, 0.5);
-        move.wristUp();
-
-        move.movement(3000, -0.3);
-        move.sideways(500, 1);
+        move.wristUp(wristUpTime);
+        move.arm(0, 1);
+        // Go and grab another specimen
+        move.movement(500, -1);
+        move.turn(90, 0.7);
+        move.range(40, 0.8);
+        move.turn(180, 0.7);
+        move.wristDown(600);
+        move.range(20, 0.5);
+        sleep(1000);
+        move.gripperClose();
+        // Go and hang other specimen
+        move.movement(500, -1);
+        move.turn(0, 0.7);
+        move.sideways(1000, -1);
+        move.range(20, 0.4);
+        move.wristDown(wristDownTime);
+        move.arm(armUpPosition/2, 1);
+        move.gripperOpen();
+        move.wristUp(wristUpTime);
+        move.arm(0, 1);
+        // Go and park
+        move.range(70, 0.8);
+        move.sideways(1000, 1);
     }
 }

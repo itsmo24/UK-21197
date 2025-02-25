@@ -27,8 +27,8 @@ public class mainMethods {
 
     int armUpTime = 1500;
     int armDownTime = 1350;
-    int wristUpTime = 1400;
-    int wristDownTime = 1400;
+    int wristUpTime = 1250;
+    int wristDownTime = 1200;
 
     int pauseTimer = 100;
 
@@ -78,18 +78,16 @@ public class mainMethods {
 
     }
 
-    public void wristDown() {
-        wrist.setPower(0.4);
-        sleep(wristDownTime);
+    public void wristUp(int time) {
+        wrist.setPower(1);
+        sleep(time);
         wrist.setPower(0);
-
     }
 
-    public void wristUp() {
-        wrist.setPower(-0.5);
-        sleep(wristUpTime);
+    public void wristDown(int time) {
+        wrist.setPower(-1);
+        sleep(time);
         wrist.setPower(0);
-
     }
 
 
@@ -181,7 +179,7 @@ public class mainMethods {
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
         double power = (currentAngle < targetAngle) ? pPower : -pPower;
-        while (Math.abs(currentAngle - targetAngle) > 2) {
+        while (Math.abs(currentAngle - targetAngle) > 1) {
             backLeft.setPower(power);
             backRight.setPower(-power);
             frontLeft.setPower(power);
