@@ -30,6 +30,8 @@ public class bucket extends LinearOpMode {
         imu = hardwareMap.get(IMU.class, "imu");
 
         int armUpPosition = 350;
+        int wristUpTime = 1250;
+        int wristDownTime = 1200;
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
@@ -52,8 +54,20 @@ public class bucket extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
-
-
+        // Go to bucket
+        move.movement(500, 1);
+        move.turn(-90, 0.5);
+        move.arm(armUpPosition, 1);
+        move.wristDown(wristDownTime);
+        move.range(30, 0.5);
+        move.turn(-135, 0.4);
+        // Release sample
+        move.gripperOpen();
+        // Park
+        move.movement(1000, 1);
+        move.turn(-90, 0.7);
+        move.range(70, 0.7);
+        move.turn(0, 0.8);
+        move.movement(1000, 1);
     }
 }

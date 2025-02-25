@@ -95,7 +95,7 @@ public class mainMethods {
 
         int currentPosition = rightArm.getCurrentPosition();
         double power = (currentPosition > targetPosition) ? pPower : -pPower;
-        while (Math.abs(currentPosition - targetPosition) > 3) {
+        while (Math.abs(currentPosition - targetPosition) > 4) {
             rightArm.setPower(power);
             leftArm.setPower(power);
             currentPosition = rightArm.getCurrentPosition();
