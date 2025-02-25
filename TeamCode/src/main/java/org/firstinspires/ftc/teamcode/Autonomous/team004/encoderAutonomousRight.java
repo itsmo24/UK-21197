@@ -124,7 +124,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             backward(12, 3500);
             sideways(40,3500);
             turn(180,1);
-            sleep(1300);
+            sleep(300);
 
             wrist.setPower(1);
             sleep(300);
@@ -135,7 +135,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(1100);
             turn(0,1);
             sideways(-40,3500);
-            sleep(1300);
+            sleep(300);
             sensor(20, 3500);
             armUp(15, 0.5);
             wrist.setPower(1);
@@ -261,7 +261,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(100);
         }
 
-        sleep(500);
+        sleep(300);
     }
 
     /*public void rotateCCW(double targetOrientationAngle, float velocity) {
