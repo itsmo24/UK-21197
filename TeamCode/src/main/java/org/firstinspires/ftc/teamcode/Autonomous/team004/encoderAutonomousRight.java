@@ -113,29 +113,26 @@ public class encoderAutonomousRight extends LinearOpMode {
             sideways(50, 3000);*/
             sensor(20, 3000);
             armUp(15, 0.5);
-            sleep(300);
+            sleep(100);
             wrist.setPower(1);
             sleep(1300);
             wrist.setPower(0);
             sleep(1300);
             armUp(9, -0.5);
             grabber(false);
-            armUp(5, -0.5);
-            wrist.setPower(-1);
-            sleep(1300);
-            wrist.setPower(0);
-            backward(15, 3000);
+            armUp(4, -0.5);
+
+            backward(12, 3000);
             sideways(40,3000);
             turn(180,1);
             sleep(1300);
 
             wrist.setPower(1);
-            sleep(600);
+            sleep(100);
             grabber(true);
-            sleep(1300);
+            sleep(300);
 
             wrist.setPower(-1);
-            sleep(600);
             sleep(1300);
             turn(0,1);
             sideways(-40,3000);
@@ -149,12 +146,12 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(1300);
             armUp(9, -0.5);
             grabber(false);
+            backward(27, 3000);
+            sideways(50, 3000);
             armUp(5, -0.5);
             wrist.setPower(-1);
             sleep(1300);
             wrist.setPower(0);
-            backward(27, 3000);
-            sideways(50, 3000);
             //turn(180,1);
 
 
@@ -256,13 +253,13 @@ public class encoderAutonomousRight extends LinearOpMode {
     }
 
     public void grabber(boolean clawCheck) {
-        double start = clawCheck ? 0.1 : 0.9;
+        double start = clawCheck ? 0.2: 0.8;
         double end = clawCheck ? 1.0 : 0.0;
-        double step = 0.1 * (clawCheck ? 1 : -1);
+        double step = 0.2 * (clawCheck ? 1 : -1);
 
         for (double pos = start; clawCheck ? (pos <= end) : (pos >= end); pos += step) {
             gripper.setPosition(pos);
-            sleep(200);
+            sleep(100);
         }
 
         sleep(500);
