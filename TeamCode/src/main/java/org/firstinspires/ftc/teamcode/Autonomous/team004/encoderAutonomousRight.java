@@ -111,46 +111,44 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(0);
             backward(27, 3000);
             sideways(50, 3000);*/
-            sensor(20, 3000);
+            sensor(20, 3500);
             armUp(15, 0.5);
-            sleep(100);
             wrist.setPower(1);
-            sleep(1300);
+            sleep(1200);
             wrist.setPower(0);
-            sleep(1300);
+            sleep(100);
             armUp(9, -0.5);
             grabber(false);
             armUp(4, -0.5);
 
-            backward(12, 3000);
-            sideways(40,3000);
+            backward(12, 3500);
+            sideways(40,3500);
             turn(180,1);
             sleep(1300);
 
             wrist.setPower(1);
-            sleep(100);
+            sleep(300);
             grabber(true);
             sleep(300);
 
             wrist.setPower(-1);
-            sleep(1300);
+            sleep(1100);
             turn(0,1);
-            sideways(-40,3000);
+            sideways(-40,3500);
             sleep(1300);
-            sensor(20, 3000);
+            sensor(20, 3500);
             armUp(15, 0.5);
-            sleep(300);
             wrist.setPower(1);
-            sleep(1300);
+            sleep(1200);
             wrist.setPower(0);
-            sleep(1300);
+            sleep(300);
             armUp(9, -0.5);
             grabber(false);
-            backward(27, 3000);
-            sideways(50, 3000);
+            backward(27, 3500);
+            sideways(50, 3500);
             armUp(5, -0.5);
             wrist.setPower(-1);
-            sleep(1300);
+            sleep(800);
             wrist.setPower(0);
             //turn(180,1);
 
@@ -249,6 +247,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         sleep((long) (100*(angle)));
         leftArm.setPower(0);
         rightArm.setPower(0);
+        sleep(100);
 
     }
 
@@ -308,7 +307,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Determine direction
         double power = (currentAngle < targetAngle) ? pPower : -pPower;
 
-        while (Math.abs(currentAngle - targetAngle) > 2 && opModeIsActive()) { // Allow small error margin
+        while (Math.abs(currentAngle - targetAngle) > 4 && opModeIsActive()) { // Allow small error margin
             frontLeft.setPower(power);
             frontRight.setPower(-power);
             backLeft.setPower(power);
