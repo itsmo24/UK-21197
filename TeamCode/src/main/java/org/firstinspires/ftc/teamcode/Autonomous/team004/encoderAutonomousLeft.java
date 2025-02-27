@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@Autonomous(name = "encoderAutonomousRight")
+@Autonomous(name = "encoderAutonomousREALREAL")
 public class encoderAutonomousLeft extends LinearOpMode {
 
     // Declare Motors and Servos
@@ -111,6 +111,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
             wrist.setPower(0);
             backward(27, 3000);
             sideways(50, 3000);*/
+            sideways(-25,3500);
             sensor(20, 3500);
             armUp(15, 0.5);
             wrist.setPower(1);

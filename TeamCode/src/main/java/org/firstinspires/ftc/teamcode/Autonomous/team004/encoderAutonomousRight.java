@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@Autonomous(name = "encoderAutonomousRight")
+@Autonomous(name = "encoderAutonomous ")
 public class encoderAutonomousRight extends LinearOpMode {
 
     // Declare Motors and Servos
@@ -96,32 +96,46 @@ public class encoderAutonomousRight extends LinearOpMode {
 
 
 
-            /*sensor(20, 3000);
+            sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
             wrist.setPower(1);
             sleep(1300);
             wrist.setPower(0);
             sleep(1300);
+
             armUp(9, -0.5);
             grabber(false);
-            armUp(5, -0.5);
+            armUp(5, 0.5);
             wrist.setPower(-1);
             sleep(1300);
             wrist.setPower(0);
             backward(27, 3000);
-            sideways(50, 3000);*/
-            sensor(20, 3500);
+            sideways(50, 2000);
+            /*sensor(20, 3500);
             armUp(15, 0.5);
             wrist.setPower(1);
             sleep(1200);
             wrist.setPower(0);
             sleep(100);
-            armUp(9, -0.5);
+            armUp(8, -0.5);
             grabber(false);
-            armUp(4, -0.5);
+            armUp(8, 0.5);
+            sleep(600);
 
-            backward(12, 3500);
+
+
+
+
+
+
+
+
+
+
+            backward(7, 3500);
+            armUp(7, -0.5);
+
             sideways(40,3500);
             turn(180,1);
             sleep(300);
@@ -144,13 +158,13 @@ public class encoderAutonomousRight extends LinearOpMode {
             sleep(300);
             armUp(9, -0.5);
             grabber(false);
-            backward(27, 3500);
+            backward( 7, 3500);
             sideways(50, 3500);
             armUp(5, -0.5);
             wrist.setPower(-1);
             sleep(800);
             wrist.setPower(0);
-            //turn(180,1);
+            //turn(180,1);*/
 
 
 
@@ -197,6 +211,20 @@ public class encoderAutonomousRight extends LinearOpMode {
         backLeft.setVelocity(velocity);
         backRight.setVelocity(velocity);
         frontLeft.setVelocity(velocity);
+        frontRight.setVelocity(velocity);
+
+        double time = ((distance * 1120) / circumference) / velocity;
+        telemetry.addData("Calculated time", time);
+        telemetry.update();
+
+        sleep((long) (time * 1000));
+        stopMotors();
+    }
+    public void left(double distance, double velocity) {
+        resetEncoders();
+        backLeft.setVelocity(velocity);
+        backRight.setVelocity(-velocity);
+        frontLeft.setVelocity(-velocity);
         frontRight.setVelocity(velocity);
 
         double time = ((distance * 1120) / circumference) / velocity;
