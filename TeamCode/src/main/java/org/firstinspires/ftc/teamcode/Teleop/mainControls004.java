@@ -27,7 +27,12 @@ public class mainControls004 extends LinearOpMode {
         CRServo leftArm;
         CRServo rightArm;
         Servo gripper;
-        CRServo wrist;
+        CRServo rightWrist;
+        CRServo leftWrist;
+        CRServo leftWinch;
+        CRServo rightWinch;
+
+
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
@@ -48,12 +53,21 @@ public class mainControls004 extends LinearOpMode {
         leftArm = hardwareMap.get(CRServo.class, "leftArm");
         rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
-        wrist = hardwareMap.get(CRServo.class, "wrist");
+        rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
+        leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
+        rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
+        leftWinch = hardwareMap.get(CRServo.class, "leftWinch");
+
 
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         leftArm.setDirection(CRServo.Direction.REVERSE);
+        leftWrist.setDirection(CRServo.Direction.REVERSE);
+        leftWinch.setDirection(CRServo.Direction.REVERSE);
+
+
+
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -131,7 +145,11 @@ public class mainControls004 extends LinearOpMode {
             //ARM & WRIST
             rightArm.setPower(-gamepad2.left_stick_y);
             leftArm.setPower(-gamepad2.left_stick_y);
-            wrist.setPower(gamepad2.right_stick_y);
+            rightWrist.setPower(gamepad2.right_stick_y);
+            leftWrist.setPower(gamepad2.right_stick_y);
+            rightWinch.setPower(gamepad2.right_trigger);
+            leftWinch.setPower(gamepad2.right_trigger);
+
 
             // HANGING BUTTON
             if (gamepad2.triangle){
@@ -139,6 +157,7 @@ public class mainControls004 extends LinearOpMode {
                 leftArm.setPower(leftArm.getPower());
                 sleep(99999999);
             }
+
 
             //GRIPPER
             // Checks to see if has been pressed before and stops if it has.
