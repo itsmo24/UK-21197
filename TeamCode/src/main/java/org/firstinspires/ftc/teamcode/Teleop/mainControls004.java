@@ -26,16 +26,16 @@ public class mainControls004 extends LinearOpMode {
         DcMotorEx backRight;
         CRServo leftArm;
         CRServo rightArm;
-        Servo gripper;
+        //Servo gripper;
         CRServo rightWrist;
         CRServo leftWrist;
         CRServo leftWinch;
         CRServo rightWinch;
+        //coded by abdul and mohamed and milly
 
 
-
-        double gripperClosedPosition = 1.0;
-        double gripperOpenPosition = 0;
+        //double gripperClosedPosition = 1.0;
+        //double gripperOpenPosition = 0;
         double FL;
         double FLMax = 0.0;
         double FR;
@@ -52,7 +52,7 @@ public class mainControls004 extends LinearOpMode {
         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
         leftArm = hardwareMap.get(CRServo.class, "leftArm");
         rightArm= hardwareMap.get(CRServo.class, "rightArm");
-        gripper = hardwareMap.get(Servo.class, "gripper");
+        //gripper = hardwareMap.get(Servo.class, "gripper");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
         rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
@@ -161,11 +161,11 @@ public class mainControls004 extends LinearOpMode {
 
             //GRIPPER
             // Checks to see if has been pressed before and stops if it has.
-            if (gamepad2.right_bumper) {
+            /*if (gamepad2.right_bumper) {
                 gripper.setPosition(gripperClosedPosition);
             } else {
                 gripper.setPosition(gripperOpenPosition);
-            }
+            }*/
 
 
 
