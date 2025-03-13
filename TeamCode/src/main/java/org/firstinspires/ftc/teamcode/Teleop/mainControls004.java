@@ -24,13 +24,13 @@ public class mainControls004 extends LinearOpMode {
         DcMotorEx frontRight;
         DcMotorEx backLeft;
         DcMotorEx backRight;
-        CRServo leftArm;
-        CRServo rightArm;
+        DcMotorEx leftArm;
+        DcMotorEx rightArm;
         Servo gripper;
         CRServo rightWrist;
         CRServo leftWrist;
-        CRServo leftWinch;
-        CRServo rightWinch;
+        DcMotorEx leftWinch;
+        DcMotorEx rightWinch;
 
 
 
@@ -50,21 +50,28 @@ public class mainControls004 extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm= hardwareMap.get(CRServo.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotorEx.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotorEx.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
-        rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
-        leftWinch = hardwareMap.get(CRServo.class, "leftWinch");
+        rightWinch = hardwareMap.get(DcMotorEx.class, "rightWinch");
+        leftWinch = hardwareMap.get(DcMotorEx.class, "leftWinch");
 
 
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
-        leftArm.setDirection(CRServo.Direction.REVERSE);
+        leftArm.setDirection(DcMotor.Direction.REVERSE);
         leftWrist.setDirection(CRServo.Direction.REVERSE);
-        leftWinch.setDirection(CRServo.Direction.REVERSE);
+        leftWinch.setDirection(DcMotor.Direction.REVERSE);
+
+
+
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
@@ -147,12 +154,12 @@ public class mainControls004 extends LinearOpMode {
             leftArm.setPower(-gamepad2.left_stick_y);
             rightWrist.setPower(gamepad2.right_stick_y);
             leftWrist.setPower(gamepad2.right_stick_y);
-            rightWinch.setPower(gamepad2.right_trigger);
-            leftWinch.setPower(gamepad2.right_trigger);
+            rightWinch.setPower(gamepad1.right_trigger);
+            leftWinch.setPower(gamepad1.right_trigger);
 
 
             // HANGING BUTTON
-            if (gamepad2.triangle){
+            if (gamepad1.triangle){
                 rightArm.setPower(rightArm.getPower());
                 leftArm.setPower(leftArm.getPower());
                 sleep(99999999);
