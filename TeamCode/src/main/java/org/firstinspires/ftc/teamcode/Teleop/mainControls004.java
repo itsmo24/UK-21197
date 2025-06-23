@@ -24,18 +24,18 @@ public class mainControls004 extends LinearOpMode {
         DcMotorEx frontRight;
         DcMotorEx backLeft;
         DcMotorEx backRight;
-        CRServo leftArm;
-        CRServo rightArm;
-        //Servo gripper;
+        DcMotorEx leftArm;
+        DcMotorEx rightArm;
+        Servo gripper;
+        CRServo test;
         CRServo rightWrist;
         CRServo leftWrist;
-        CRServo leftWinch;
-        CRServo rightWinch;
-        //coded by abdul and mohamed and milly
+        DcMotorEx leftWinch;
+        DcMotorEx rightWinch;
 
 
-        //double gripperClosedPosition = 1.0;
-        //double gripperOpenPosition = 0;
+        double gripperClosedPosition = 1.0;
+        double gripperOpenPosition = 0;
         double FL;
         double FLMax = 0.0;
         double FR;
@@ -50,14 +50,14 @@ public class mainControls004 extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm= hardwareMap.get(CRServo.class, "rightArm");
-        //gripper = hardwareMap.get(Servo.class, "gripper");
+        leftArm = hardwareMap.get(DcMotorEx.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotorEx.class, "rightArm");
+        gripper = hardwareMap.get(Servo.class, "gripper");
+        test = hardwareMap.get(CRServo.class, "test");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
-        rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
-        leftWinch = hardwareMap.get(CRServo.class, "leftWinch");
-
+        rightWinch = hardwareMap.get(DcMotorEx.class, "rightWinch");
+        leftWinch = hardwareMap.get(DcMotorEx.class, "leftWinch");
 
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -65,7 +65,6 @@ public class mainControls004 extends LinearOpMode {
         leftArm.setDirection(CRServo.Direction.REVERSE);
         leftWrist.setDirection(CRServo.Direction.REVERSE);
         leftWinch.setDirection(CRServo.Direction.REVERSE);
-
 
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -101,10 +100,6 @@ public class mainControls004 extends LinearOpMode {
         while (opModeIsActive()) {
             // Movement
 
-
-
-
-
             double topLeftSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
             double bottomLeftSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
             double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
@@ -114,7 +109,7 @@ public class mainControls004 extends LinearOpMode {
             frontRight.setVelocity(3000*topRightSpeed);
             backLeft.setVelocity(3000*bottomLeftSpeed);
             backRight.setVelocity(3000*bottomRightSpeed);
-            //backLeft.set
+
             FL = (backLeft.getVelocity());
             FR = (backLeft.getVelocity());
             BR = (backLeft.getVelocity());
@@ -150,6 +145,7 @@ public class mainControls004 extends LinearOpMode {
             rightWinch.setPower(gamepad2.right_trigger);
             leftWinch.setPower(gamepad2.right_trigger);
 
+            test.setPower(1);
 
             // HANGING BUTTON
             if (gamepad2.triangle){
@@ -160,17 +156,16 @@ public class mainControls004 extends LinearOpMode {
 
 
             //GRIPPER
-            // Checks to see if has been pressed before and stops if it has.
-            /*if (gamepad2.right_bumper) {
+            if (gamepad2.right_bumper) {
                 gripper.setPosition(gripperClosedPosition);
             } else {
                 gripper.setPosition(gripperOpenPosition);
-            }*/
+            }
 
 
 
-            //telemetry.addData("Status", "Run Time: " + runtime);
-            //telemetry.update();
+            telemetry.addData("Status", "Run Time: " + runtime);
+            telemetry.update();
 
         }
     }
