@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
-@Autonomous(name = "(182) bucket")
 public class bucket extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
-@TeleOp(name = "(182) Main Controls")
 public class mainControls182 extends LinearOpMode {
     @Override
     public void runOpMode(){

@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@Autonomous(name = "(182) specimen")
 public class specimen extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
