@@ -60,19 +60,10 @@ public class mainMethods {
     }
 
     // ARM AND WRIST
-    public void armUpT() {
-        rightArm.setPower(-0.8);
-        leftArm.setPower(-0.8);
-        sleep(armUpTime);
-        rightArm.setPower(0);
-        leftArm.setPower(0);
-
-    }
-
-    public void armDownT() {
-        rightArm.setPower(0.8);
-        leftArm.setPower(0.8);
-        sleep(armDownTime);
+    public void armT(int time, double power) {
+        rightArm.setPower(power);
+        leftArm.setPower(power);
+        sleep(time);
         rightArm.setPower(0);
         leftArm.setPower(0);
 
@@ -105,6 +96,7 @@ public class mainMethods {
     }
 
     // MOVEMENT
+
     public void movement(int time, double power) {
         backLeft.setPower(power);
         backRight.setPower(power);
@@ -178,8 +170,9 @@ public class mainMethods {
     public void turn(int targetAngle, double pPower) {
         int currentAngle = (int) Math.round(imu.getRobotYawPitchRollAngles().getYaw(BNO055IMU.AngleUnit.DEGREES.toAngleUnit()));
         // Looping until target angle is reached
-        double power = (currentAngle < targetAngle) ? pPower : -pPower;
-        while (Math.abs(currentAngle - targetAngle) > 1) {
+
+        while (Math.abs(currentAngle - targetAngle) > 2) {
+            double power = (currentAngle < targetAngle) ? pPower : -pPower;
             backLeft.setPower(power);
             backRight.setPower(-power);
             frontLeft.setPower(power);
@@ -196,7 +189,7 @@ public class mainMethods {
         int currentDistance = (int) Math.round(rangeSensor.getDistance(DistanceUnit.CM));
         double power = (currentDistance > targetDistance) ? pPower : -pPower;
 
-        while (Math.abs(currentDistance - targetDistance) > 1) {
+        while (Math.abs(currentDistance - targetDistance) > 2) {
             backLeft.setPower(power);
             backRight.setPower(power);
             frontLeft.setPower(power);

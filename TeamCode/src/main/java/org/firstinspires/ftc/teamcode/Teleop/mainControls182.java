@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,10 +21,11 @@ public class mainControls182 extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
-        DcMotor leftArm;
-        DcMotor rightArm;
+        CRServo leftArm;
+        CRServo rightArm;
         Servo gripper;
-        CRServo wrist;
+        CRServo rightWrist;
+        CRServo leftWrist;
 
         double drive, turn, strafe;
         double frPower, flPower, brPower, blPower;
@@ -35,19 +37,22 @@ public class mainControls182 extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
-        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(CRServo.class, "leftArm");
+        rightArm= hardwareMap.get(CRServo.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
-        wrist = hardwareMap.get(CRServo.class, "wrist");
+        rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
+        leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
         imu = hardwareMap.get(IMU.class, "imu");
 
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
-        leftArm.setDirection(DcMotor.Direction.REVERSE);
+        leftArm.setDirection(CRServo.Direction.REVERSE);
+        //leftWrist.setDirection(CRServo.Direction.REVERSE);
 
-        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -89,7 +94,8 @@ public class mainControls182 extends LinearOpMode {
             //ARM & WRIST
             rightArm.setPower(gamepad2.left_stick_y);
             leftArm.setPower(gamepad2.left_stick_y);
-            wrist.setPower(gamepad2.right_stick_y);
+            rightWrist.setPower(gamepad2.right_stick_y);
+            leftWrist.setPower(-gamepad2.right_stick_y);
 
             // HANGING BUTTON
             if (gamepad2.triangle){

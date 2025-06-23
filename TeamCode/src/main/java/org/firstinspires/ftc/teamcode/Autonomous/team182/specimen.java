@@ -31,7 +31,9 @@ public class specimen extends LinearOpMode {
         imu = hardwareMap.get(IMU.class, "imu");
 
         int armUpPosition = 430;
-        int wristUpTime = 1250;
+        int armUpTime = 2050                                                                                     ;
+        int armDownTime = 1500;
+        int wristUpTime = 1400;
         int wristDownTime = 1200;
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -57,36 +59,36 @@ public class specimen extends LinearOpMode {
         waitForStart();
         // Go and hang specimen
         move.movement(500, 1);
-        move.sideways(500, -1);
-        move.turn(0, 0.3);
-        move.arm(armUpPosition, 1);
-        move.range(20, 0.5);
+        move.armT(armUpTime, -1);
+        move.range(15, 0.5);
         move.wristDown(wristDownTime);
-        move.arm(armUpPosition/2, 1);
+        move.armT(armDownTime/2, 1);
         move.gripperOpen();
         move.wristUp(wristUpTime);
-        move.arm(0, 1);
+        move.armT(armDownTime/2, 1);
         // Go and grab another specimen
-        move.movement(500, -1);
-        move.turn(90, 0.7);
-        move.range(40, 0.8);
-        move.turn(180, 0.7);
-        move.wristDown(600);
-        move.range(20, 0.5);
-        sleep(1000);
-        move.gripperClose();
+        move.movement(1400, -1);
+        //move.turn(90, 0.7);
+//        move.range(40, 0.8);
+//        move.turn(180, 0.7);
+//        move.wristDown(600);
+//        move.range(20, 0.5);
+//        sleep(1000);
+//        move.gripperClose();
+        move.sideways(2000, 1);
         // Go and hang other specimen
-        move.movement(500, -1);
-        move.turn(0, 0.7);
-        move.sideways(1000, -1);
-        move.range(20, 0.4);
-        move.wristDown(wristDownTime);
-        move.arm(armUpPosition/2, 1);
-        move.gripperOpen();
-        move.wristUp(wristUpTime);
-        move.arm(0, 1);
-        // Go and park
-        move.range(70, 0.8);
-        move.sideways(1000, 1);
+//        move.movement(500, -1);
+//        move.turn(0, 0.7);
+//        move.sideways(1000, -1);
+//        move.armT(armUpTime, 1);
+//        move.range(20, 0.4);
+//        move.wristDown(wristDownTime);
+//        move.armT(armDownTime/2, 1);
+//        move.gripperOpen();
+//        move.wristUp(wristUpTime);
+//        move.armT(armDownTime/2, 1);
+//        // Go and park
+//        move.range(70, 0.8);
+//        move.sideways(1000, 1);
     }
 }
