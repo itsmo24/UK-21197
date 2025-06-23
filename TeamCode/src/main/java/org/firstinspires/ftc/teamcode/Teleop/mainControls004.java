@@ -75,6 +75,14 @@ public class mainControls004 extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         /*frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
         frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
         backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
