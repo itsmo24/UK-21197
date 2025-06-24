@@ -94,9 +94,9 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Start autonomous movement
         if (opModeIsActive()) {
 
+            turn(180,1);
 
-
-            sensor(20, 3000);
+            /*sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
             wrist.setPower(1);
@@ -110,61 +110,12 @@ public class encoderAutonomousRight extends LinearOpMode {
             wrist.setPower(-1);
             sleep(1300);
             wrist.setPower(0);
-            backward(27, 3000);
-            sideways(50, 2000);
-            /*sensor(20, 3500);
-            armUp(15, 0.5);
-            wrist.setPower(1);
-            sleep(1200);
-            wrist.setPower(0);
-            sleep(100);
-            armUp(8, -0.5);
-            grabber(false);
-            armUp(8, 0.5);
-            sleep(600);
+            backward(14, 3000);
+            sideways(25, 2000);*/
 
 
 
 
-
-
-
-
-
-
-
-            backward(7, 3500);
-            armUp(7, -0.5);
-
-            sideways(40,3500);
-            turn(180,1);
-            sleep(300);
-
-            wrist.setPower(1);
-            sleep(300);
-            grabber(true);
-            sleep(300);
-
-            wrist.setPower(-1);
-            sleep(1100);
-            turn(0,1);
-            sideways(-40,3500);
-            sleep(300);
-            sensor(20, 3500);
-            armUp(15, 0.5);
-            wrist.setPower(1);
-            sleep(1200);
-            wrist.setPower(0);
-            sleep(300);
-            armUp(9, -0.5);
-            grabber(false);
-            backward( 7, 3500);
-            sideways(50, 3500);
-            armUp(5, -0.5);
-            wrist.setPower(-1);
-            sleep(800);
-            wrist.setPower(0);
-            //turn(180,1);*/
 
 
 
