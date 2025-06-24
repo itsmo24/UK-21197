@@ -14,9 +14,6 @@ import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 public class mainControls004 extends LinearOpMode {
     @Override
     public void runOpMode(){
-        // Initialize
-        ElapsedTime runtime = new ElapsedTime();
-        PIDFCoefficients pidfCoefficients;
         DcMotor frontLeft;
         DcMotor frontRight;
         DcMotor backLeft;
@@ -70,16 +67,16 @@ public class mainControls004 extends LinearOpMode {
             blPower = drive - turn + strafe;
             brPower = drive + turn - strafe;
 
-            if ((flPower > 1) || (flPower < -1)) {
+            if (Math.abs(flPower) > 1) {
                 flPower = flPower/Math.abs(flPower);
             }
-            if ((frPower > 1) || (frPower < -1)) {
+            if (Math.abs(frPower) > 1) {
                 frPower = frPower/Math.abs(frPower);
             }
-            if ((blPower > 1) || (blPower < -1)) {
+            if (Math.abs(blPower) > 1) {
                 blPower = blPower/Math.abs(blPower);
             }
-            if ((brPower > 1) || (brPower < -1)) {
+            if (Math.abs(brPower) > 1) {
                 brPower = brPower/Math.abs(brPower);
             }
 
