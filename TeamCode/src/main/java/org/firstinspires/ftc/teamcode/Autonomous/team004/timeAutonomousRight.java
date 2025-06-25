@@ -131,6 +131,8 @@ public class timeAutonomousRight extends LinearOpMode{
     }
 
 
+
+
     public void grabber(boolean clawCheck) {
         double start = clawCheck ? 0.1 : 0.9; // Start position based on opening or closing
         double end = clawCheck ? 1.0 : 0.0;   // End position

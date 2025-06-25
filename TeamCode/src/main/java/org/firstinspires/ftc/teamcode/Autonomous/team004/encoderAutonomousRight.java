@@ -67,7 +67,8 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Set motor directions
         frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
         backLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        leftArm.setDirection(DcMotorEx.Direction.REVERSE);
+        rightArm.setDirection(DcMotorEx.Direction.REVERSE);
+        rightWrist.setDirection(CRServo.Direction.REVERSE);
 
         // Reset Encoders
         frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -106,31 +107,47 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Start autonomous movement
         if (opModeIsActive()) {
 
-            rotateCW(180,500);
-            sleep(2000);
-            rotateCW(90,500);
-            /*sensor(20, 3000);
-            armUp(15, 0.5);
+            sensor(20, 3000);
+            armUp(6, 0.5);
             sleep(300);
             wrist(1);
-            sleep(1300);
+            sleep(800);
             wrist(0);
-            sleep(1300);
-
-            armUp(9, -0.5);
+            armUp(4, -0.5);
             grabber(false);
-            armUp(5, 0.5);
+            //armUp(10, 0.5);
+            wrist(-1);
+            sleep(800);
+            wrist(0);
+            backward(1, 3000);
+            sideways(7, 3000);
+            forward(14, 3000);
+            sideways(7, 3000);
+            backward(28, 3000);
+            forward(10, 3000);
+            armUp(25, 0.5);
+            backward(12, 300);
+            grabber(true);
+            armUp(20, -0.5);
+            sideways(18, -3000);
+            sensor(20, 3000);
+            armUp(4.5, 0.5);
+            sleep(300);
+            wrist(1);
+            sleep(800);
+
+
+            armUp(6, 0.5);
+
+            grabber(false);
             wrist(-1);
             sleep(1300);
             wrist(0);
-            backward(14, 3000);
-            sideways(25, 2000);*/
+            backward(12, 3000);
 
 
 
-
-
-
+            sideways(18, 3000);
 
 
             telemetry.update();
@@ -247,6 +264,7 @@ public class encoderAutonomousRight extends LinearOpMode {
 
     }
 
+
     public void grabber(boolean clawCheck) {
         double start = clawCheck ? 0.2: 0.8;
         double end = clawCheck ? 1.0 : 0.0;
@@ -321,7 +339,7 @@ public class encoderAutonomousRight extends LinearOpMode {
 
         stopMotors();
     }
-    
+
 
     public void turn(int targetAngle, double pPower) {
         // Store yaw offset to simulate "reset"
@@ -367,19 +385,12 @@ public class encoderAutonomousRight extends LinearOpMode {
     public void sideways(double distance, double velocity) {
         double targetPosition = (distance / circumference) * 1120;
         resetEncoders();
-        if (velocity > 0) {
+
 
             frontLeft.setPower(velocity);
             frontRight.setPower(-velocity);
             backLeft.setPower(-velocity);
             backRight.setPower(velocity);
-        } else {
-
-            frontLeft.setPower(-velocity);
-            frontRight.setPower(velocity);
-            backLeft.setPower(velocity);
-            backRight.setPower(-velocity);
-        }
 
         while (Math.abs(frontLeft.getCurrentPosition()) < targetPosition && opModeIsActive()) {
             telemetry.addData("Target Position", targetPosition);
