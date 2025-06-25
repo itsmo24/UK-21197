@@ -95,7 +95,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
         if (opModeIsActive()) {
 
 
-
+            rotateCCW(180,300);
             /*sensor(20, 3000);
             armUp(15, 0.5);
             sleep(300);
@@ -111,7 +111,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
             wrist.setPower(0);
             backward(27, 3000);
             sideways(50, 3000);*/
-            sideways(-25,3500);
+            /*sideways(-25,3500);
             sensor(20, 3500);
             armUp(15, 0.5);
             wrist.setPower(1);
@@ -150,7 +150,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
             armUp(5, -0.5);
             wrist.setPower(-1);
             sleep(800);
-            wrist.setPower(0);
+            wrist.setPower(0);*/
             //turn(180,1);
 
 
@@ -265,7 +265,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
         sleep(500);
     }
 
-    /*public void rotateCCW(double targetOrientationAngle, float velocity) {
+    public void rotateCCW(double targetOrientationAngle, float velocity) {
         double targetOrientationAngleRad = Math.toRadians(targetOrientationAngle);
         double currentAngle = 0;
         resetEncoders();
@@ -299,7 +299,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
         }
 
         stopMotors();
-    }*/
+    }
 
     public void turn(int targetAngle, double pPower) {
         // Reset yaw at the start of the turn
