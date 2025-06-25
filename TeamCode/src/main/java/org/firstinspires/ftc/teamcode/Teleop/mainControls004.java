@@ -3,166 +3,101 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
-
 @TeleOp(name = "(004) Main Controls")
 public class mainControls004 extends LinearOpMode {
-//connect 192.168.43.1
-    //connect 192.168.43.1/-
     @Override
     public void runOpMode(){
-        // Initialize
-
-        ElapsedTime runtime = new ElapsedTime();
-        PIDFCoefficients pidfCoefficients;
-        DcMotorEx frontLeft;
-        DcMotorEx frontRight;
-        DcMotorEx backLeft;
-        DcMotorEx backRight;
-        DcMotorEx leftArm;
-        DcMotorEx rightArm;
+        DcMotor frontLeft;
+        DcMotor frontRight;
+        DcMotor backLeft;
+        DcMotor backRight;
+        DcMotor leftArm;
+        DcMotor rightArm;
         Servo gripper;
-        CRServo test;
         CRServo rightWrist;
         CRServo leftWrist;
-        DcMotorEx leftWinch;
-        DcMotorEx rightWinch;
-
+        DcMotor leftWinch;
+        DcMotor rightWinch;
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
-        double FL;
-        double FLMax = 0.0;
-        double FR;
-        double FRMax = 0.0;
-        double BL;
-        double BLMax = 0.0;
-        double BR;
-        double BRMax = 0.0;
+        double drive, turn, strafe;
+        double frPower, flPower, brPower, blPower;
 
-
-        frontLeft  = hardwareMap.get(DcMotorEx.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
-        backRight = hardwareMap.get(DcMotorEx.class, "backRight");
-        leftArm = hardwareMap.get(DcMotorEx.class, "leftArm");
-        rightArm= hardwareMap.get(DcMotorEx.class, "rightArm");
+        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
-        test = hardwareMap.get(CRServo.class, "test");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
-        rightWinch = hardwareMap.get(DcMotorEx.class, "rightWinch");
-        leftWinch = hardwareMap.get(DcMotorEx.class, "leftWinch");
-
+        rightWinch = hardwareMap.get(DcMotor.class, "rightWinch");
+        leftWinch = hardwareMap.get(DcMotor.class, "leftWinch");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
-        leftArm.setDirection(CRServo.Direction.REVERSE);
-        leftWrist.setDirection(CRServo.Direction.REVERSE);
-        leftWinch.setDirection(CRServo.Direction.REVERSE);
+        rightArm.setDirection(DcMotor.Direction.REVERSE);
+        leftWrist.setDirection(DcMotor.Direction.REVERSE);
+        leftWinch.setDirection(DcMotor.Direction.REVERSE);
 
-
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        /*frontLeft.setVelocityPIDFCoefficients( 1.15, 0.115, 0,11.5);
-        frontRight.setVelocityPIDFCoefficients(3.45,0.345,0,34.5);
-        backLeft.setVelocityPIDFCoefficients(1.2,0.12,0,12);
-        backRight.setVelocityPIDFCoefficients(1.13,0.113,0,11.3);*/
-        //front left max velocity is 2860
-        //back left max velocity is 2720
-
-        //front right max velocity is 980
-        //back right max velocity is 2900
-        //32767/FLMax
-        //https://ftctechnh.github.io/ftc_app/doc/javadoc/com/qualcomm/robotcore/hardware/DcMotorEx.html#getVelocity-org.firstinspires.ftc.robotcore.external.navigation.AngleUnit-
-        //https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit?tab=t.0#heading=h.h2mitzlvr4py
-        //https://github.com/NoahBres/VelocityPIDTuningTutorial/blob/master/README.md
-
-
-
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
 
         waitForStart();
         // Start
         while (opModeIsActive()) {
             // Movement
+            drive = gamepad1.left_stick_y;
+            turn = gamepad1.right_stick_x;
+            strafe = gamepad1.left_stick_x;
 
-            double topLeftSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double bottomLeftSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-            double topRightSpeed = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-            double bottomRightSpeed = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
+            flPower = drive - turn - strafe;
+            frPower = drive + turn + strafe;
+            blPower = drive - turn + strafe;
+            brPower = drive + turn - strafe;
 
-            frontLeft.setVelocity(3000*topLeftSpeed);
-            frontRight.setVelocity(3000*topRightSpeed);
-            backLeft.setVelocity(3000*bottomLeftSpeed);
-            backRight.setVelocity(3000*bottomRightSpeed);
-
-            FL = (backLeft.getVelocity());
-            FR = (backLeft.getVelocity());
-            BR = (backLeft.getVelocity());
-            BL = (backLeft.getVelocity());
-            if (FL > FLMax) {
-                FLMax = FL;
+            if (Math.abs(flPower) > 1) {
+                flPower = flPower/Math.abs(flPower);
             }
-            if (FR > FRMax) {
-                FRMax = FR;
+            if (Math.abs(frPower) > 1) {
+                frPower = frPower/Math.abs(frPower);
             }
-            if (BR > BRMax) {
-                BRMax = BR;
+            if (Math.abs(blPower) > 1) {
+                blPower = blPower/Math.abs(blPower);
             }
-            if (BL > BLMax) {
-                BLMax = BL;
+            if (Math.abs(brPower) > 1) {
+                brPower = brPower/Math.abs(brPower);
             }
-            telemetry.addData("FL:", FL);
-            telemetry.addData("FLMax:", FLMax);
-            telemetry.addData("FR:", FR);
-            telemetry.addData("FRMax:", FRMax);
-            telemetry.addData("BL:", BL);
-            telemetry.addData("BLMax:", BLMax);
-            telemetry.addData("BR:", BR);
-            telemetry.addData("BRMax:", BRMax);
 
-            telemetry.update();
+            frontLeft.setPower(flPower);
+            frontRight.setPower(blPower);
+            backLeft.setPower(frPower);
+            backRight.setPower(brPower);
 
-            //ARM & WRIST
-            rightArm.setPower(-gamepad2.left_stick_y);
-            leftArm.setPower(-gamepad2.left_stick_y);
+            // Arm control
+            rightArm.setPower(gamepad2.left_stick_y);
+            leftArm.setPower(gamepad2.left_stick_y);
             rightWrist.setPower(gamepad2.right_stick_y);
             leftWrist.setPower(gamepad2.right_stick_y);
-            rightWinch.setPower(gamepad2.right_trigger);
-            leftWinch.setPower(gamepad2.right_trigger);
+            rightWinch.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+            leftWinch.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
 
-            test.setPower(1);
 
             // HANGING BUTTON
-            if (gamepad2.triangle){
-                rightArm.setPower(rightArm.getPower());
-                leftArm.setPower(leftArm.getPower());
+            if (gamepad1.triangle){
                 sleep(99999999);
             }
-
 
             //GRIPPER
             if (gamepad2.right_bumper) {
@@ -170,13 +105,6 @@ public class mainControls004 extends LinearOpMode {
             } else {
                 gripper.setPosition(gripperOpenPosition);
             }
-
-
-
-            telemetry.addData("Status", "Run Time: " + runtime);
-            telemetry.update();
-
         }
     }
-
 }
