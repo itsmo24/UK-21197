@@ -392,6 +392,7 @@ public class encoderAutonomousRight extends LinearOpMode {
             backLeft.setPower(-velocity);
             backRight.setPower(velocity);
 
+
         while (Math.abs(frontLeft.getCurrentPosition()) < targetPosition && opModeIsActive()) {
             telemetry.addData("Target Position", targetPosition);
             telemetry.addData("Current Position", frontLeft.getCurrentPosition());
