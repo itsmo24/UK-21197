@@ -23,7 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Autonomous.mainMethods;
 
-@Autonomous(name = "encoderAutonomous ")
+@Autonomous(name = "encoderAutonomousRight")
 public class encoderAutonomousRight extends LinearOpMode {
 
     // Declare Motors and Servos
@@ -33,7 +33,7 @@ public class encoderAutonomousRight extends LinearOpMode {
     DistanceSensor rangeSensor;
     //TouchSensor touchSensor;
 
-    private DcMotorEx frontLeft, frontRight, backLeft, backRight, leftArm, rightArm;
+    private DcMotorEx frontLeft, frontRight, backLeft, backRight,leftArm, rightArm;
     private CRServo leftWrist, rightWrist;
     private Servo gripper;
     private double circumference = 2.95 * Math.PI;
@@ -67,7 +67,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Set motor directions
         frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
         backLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        rightArm.setDirection(DcMotorEx.Direction.REVERSE);
+        rightArm.setDirection(CRServo.Direction.REVERSE);
         rightWrist.setDirection(CRServo.Direction.REVERSE);
 
         // Reset Encoders

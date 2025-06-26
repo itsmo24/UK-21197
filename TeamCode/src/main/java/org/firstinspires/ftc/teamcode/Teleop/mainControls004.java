@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,13 +19,13 @@ public class mainControls004 extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
-        DcMotor leftArm;
-        DcMotor rightArm;
+        CRServo leftArm;
+        CRServo rightArm;
         Servo gripper;
         CRServo rightWrist;
         CRServo leftWrist;
         DcMotor leftWinch;
-        DcMotor rightWinch;
+        CRServo rightWinch;
 
         double gripperClosedPosition = 1.0;
         double gripperOpenPosition = 0;
@@ -40,7 +41,7 @@ public class mainControls004 extends LinearOpMode {
         gripper = hardwareMap.get(Servo.class, "gripper");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
-        rightWinch = hardwareMap.get(DcMotor.class, "rightWinch");
+        rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
         leftWinch = hardwareMap.get(DcMotor.class, "leftWinch");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -49,10 +50,9 @@ public class mainControls004 extends LinearOpMode {
         leftWrist.setDirection(DcMotor.Direction.REVERSE);
         leftWinch.setDirection(DcMotor.Direction.REVERSE);
 
-        rightWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         leftWinch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         waitForStart();
         // Start
