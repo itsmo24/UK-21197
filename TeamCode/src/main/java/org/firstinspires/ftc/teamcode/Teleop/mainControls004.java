@@ -18,15 +18,15 @@ public class mainControls004 extends LinearOpMode {
         DcMotor frontRight;
         DcMotor backLeft;
         DcMotor backRight;
-        CRServo leftArm;
-        CRServo rightArm;
+        DcMotor leftArm;
+        DcMotor rightArm;
         Servo gripper;
         CRServo rightWrist;
         CRServo leftWrist;
         DcMotor leftWinch;
-        CRServo rightWinch;
+        DcMotor rightWinch;
 
-        double gripperClosedPosition = 1.0;
+        double gripperClosedPosition = 1;
         double gripperOpenPosition = 0;
         double drive, turn, strafe;
         double frPower, flPower, brPower, blPower;
@@ -35,12 +35,12 @@ public class mainControls004 extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm= hardwareMap.get(CRServo.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+        rightArm= hardwareMap.get(DcMotor.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
-        rightWinch = hardwareMap.get(CRServo.class, "rightWinch");
+        rightWinch = hardwareMap.get(DcMotor.class, "rightWinch");
         leftWinch = hardwareMap.get(DcMotor.class, "leftWinch");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -61,10 +61,10 @@ public class mainControls004 extends LinearOpMode {
             turn = gamepad1.right_stick_x;
             strafe = gamepad1.left_stick_x;
 
-            flPower = drive - turn - strafe;
-            frPower = drive + turn + strafe;
-            blPower = drive - turn + strafe;
-            brPower = drive + turn - strafe;
+            flPower = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+            blPower = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+            frPower  = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
+            brPower = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
 
             if (Math.abs(flPower) > 1) {
                 flPower = flPower/Math.abs(flPower);

@@ -66,7 +66,7 @@ public class encoderAutonomousLeft extends LinearOpMode {
         // Set motor directions
         frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
         backLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        rightArm.setDirection(CRServo.Direction.REVERSE);
+        rightArm.setDirection(DcMotorEx.Direction.REVERSE);
         rightWrist.setDirection(CRServo.Direction.REVERSE);
 
         // Reset Encoders

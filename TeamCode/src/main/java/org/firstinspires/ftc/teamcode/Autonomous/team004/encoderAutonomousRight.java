@@ -33,8 +33,8 @@ public class encoderAutonomousRight extends LinearOpMode {
     DistanceSensor rangeSensor;
     //TouchSensor touchSensor;
 
-    private DcMotorEx frontLeft, frontRight, backLeft, backRight;
-    private CRServo leftWrist, rightWrist,leftArm, rightArm;
+    private DcMotorEx frontLeft, frontRight, backLeft, backRight, leftArm, rightArm;
+    private CRServo leftWrist, rightWrist;
     private Servo gripper;
     private double circumference = 2.95 * Math.PI;
 
@@ -49,8 +49,8 @@ public class encoderAutonomousRight extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
-        leftArm = hardwareMap.get(CRServo.class, "leftArm");
-        rightArm = hardwareMap.get(CRServo.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotorEx.class, "leftArm");
+        rightArm = hardwareMap.get(DcMotorEx.class, "rightArm");
         gripper = hardwareMap.get(Servo.class, "gripper");
         leftWrist = hardwareMap.get(CRServo.class, "leftWrist");
         rightWrist = hardwareMap.get(CRServo.class, "rightWrist");
@@ -67,7 +67,7 @@ public class encoderAutonomousRight extends LinearOpMode {
         // Set motor directions
         frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
         backLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        rightArm.setDirection(CRServo.Direction.REVERSE);
+        rightArm.setDirection(DcMotorEx.Direction.REVERSE);
         rightWrist.setDirection(CRServo.Direction.REVERSE);
 
         // Reset Encoders
